@@ -3,6 +3,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { FaVideo } from "react-icons/fa"; // video icon
 import { API_URL } from "../utils/api";
+import { useNavigate } from "react-router-dom";
 
 const AddVideo = () => {
   const [video, setVideo] = useState(null);
@@ -10,6 +11,7 @@ const AddVideo = () => {
   const [uploadedUrl, setUploadedUrl] = useState("");
   const [videos, setVideos] = useState([]);
   const fileInputRef = useRef(null);
+  const navigate = useNavigate();
 
   const handleVideoChange = (e) => {
     const file = e.target.files[0];

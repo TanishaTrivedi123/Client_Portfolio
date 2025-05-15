@@ -3,6 +3,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { FaImage } from "react-icons/fa";
 import { API_URL } from "../utils/api";
+import { useNavigate } from "react-router-dom";
 
 const AddThumbnail = () => {
   const [image, setImage] = useState(null);
@@ -10,6 +11,7 @@ const AddThumbnail = () => {
   const [uploadedUrl, setUploadedUrl] = useState("");
   const [images, setImages] = useState([]); // Store images in array
   const fileInputRef = useRef(null);
+  const navigate = useNavigate();
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
