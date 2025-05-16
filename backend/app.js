@@ -39,10 +39,12 @@ app.get("/", (req, res) => {
 const adminRoute = require("./routes/AdminRoute");
 const addThumbnailRoute = require("./routes/AddThumbnailRoute");
 const addShortVideoRoute = require("./routes/AddShortVideoRoute");
+const mediaRoute = require("./routes/mediaRoute");
 
 app.use("/", adminRoute);
 app.use("/", addThumbnailRoute);
 app.use("/", addShortVideoRoute);
+app.use("", mediaRoute);
 
 // Set the port to listen on
 const PORT = process.env.PORT || 5000;

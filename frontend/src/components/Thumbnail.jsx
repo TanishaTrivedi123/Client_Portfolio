@@ -10,11 +10,15 @@ const Thumbnail = () => {
   const [atStart, setAtStart] = useState(true);
   const [atEnd, setAtEnd] = useState(false);
   const [images, setImages] = useState([]);
+  const [signedUrls, setSignedUrls] = useState([]);
+  const cardRefs = useRef([]);
+  const [styles, setStyles] = useState([]);
 
-  const cardRefs = useRef([]); // array of refs for cards
-  const [styles, setStyles] = useState([]); // array of styles for each card
-
-  const originalImages = images.map((item) => ({ src: item.image.url }));
+  // Use signedUrls if available, else fallback to images' original URL
+  const displayImages =
+    signedUrls.length === images.length
+      ? signedUrls.map((url) => ({ src: url }))
+      : images.map((item) => ({ src: item.image?.url || "" }));
 
   useEffect(() => {
     const el = scrollRef.current;
@@ -32,6 +36,7 @@ const Thumbnail = () => {
     return () => el.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Fetch thumbnails data from backend
   useEffect(() => {
     const fetchThumbnails = async () => {
       try {
@@ -41,16 +46,37 @@ const Thumbnail = () => {
         console.error("Failed to load thumbnails:", err);
       }
     };
-
     fetchThumbnails();
   }, []);
 
+  // Fetch signed URLs after images load
+  useEffect(() => {
+    const fetchSignedUrls = async () => {
+      if (images.length === 0) return;
+      try {
+        const urls = await Promise.all(
+          images.map(async (img) => {
+            if (!img.public_id) return img.image?.url || "";
+            const res = await axios.get(
+              `/secure-media/${img.resource_type || "image"}/${img.public_id}`
+            );
+            return res.data.url;
+          })
+        );
+        setSignedUrls(urls);
+      } catch (err) {
+        console.error("Failed to fetch signed URLs:", err);
+      }
+    };
+    fetchSignedUrls();
+  }, [images]);
+
+  // Calculate card styles for 3D effect on scroll
   useEffect(() => {
     if (!scrollRef.current || cardRefs.current.length === 0) return;
 
     const newStyles = cardRefs.current.map((card) => {
       if (!card) return { scale: 1, translateY: 0, rotateY: 0 };
-
       const container = scrollRef.current;
       const cardCenter =
         card.offsetLeft - container.scrollLeft + card.offsetWidth / 2;
@@ -146,11 +172,11 @@ const Thumbnail = () => {
           scrollBehavior: "smooth",
         }}
       >
-        {originalImages.map((img, index) => (
+        {displayImages.map((img, index) => (
           <motion.div
             key={index}
             ref={(el) => (cardRefs.current[index] = el)}
-            className="scroll-snap-align-center min-w-[250px] md:min-w-[450px] h-[200px] md:h-[400px] flex-shrink-0 relative"
+            className="scroll-snap-align-center min-w-[250px] sm:min-w-[350px] md:min-w-[500px] lg:min-w-[600px] h-[200px] sm:h-[300px] md:h-[400px] lg:h-[450px] flex-shrink-0 relative"
             style={{
               scale: styles[index]?.scale || 1,
               transform: `translateY(${
@@ -189,7 +215,7 @@ const Thumbnail = () => {
           </motion.div>
         ))}
       </div>
-
+      {/* Scroll hints */}
       {atStart && (
         <div className="absolute left-0 top-1/2 -translate-y-1/2 px-4 py-2 bg-[#0d0d0de6] backdrop-blur-sm rounded-r-xl text-[#f6c610] flex items-center gap-2 z-20 animate-fadeIn">
           <span className="text-xl">&#8594;</span>
