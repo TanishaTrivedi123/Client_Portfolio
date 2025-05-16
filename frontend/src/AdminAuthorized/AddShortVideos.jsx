@@ -76,7 +76,7 @@ const AddVideo = () => {
   return (
     <div className="min-h-screen bg-black flex items-center justify-center px-4">
       <div className="bg-[#0d0d0d] p-8 rounded-2xl shadow-lg w-full max-w-md border border-[#f6c610]">
-        <h2 className="text-2xl font-semibold text-center text-[#f6c610] mb-6">
+        <h2 className="text-2xl font-semibold text-center text-[#f6c610] mb-6 font-poppins">
           Upload Video
         </h2>
 
@@ -117,7 +117,7 @@ const AddVideo = () => {
         <form onSubmit={handleUpload} className="flex flex-col gap-4">
           <button
             type="submit"
-            className="bg-[#f6c610] text-black font-bold py-2 rounded-md hover:bg-yellow-400 transition duration-300"
+            className="bg-[#f6c610] text-black font-bold py-2 rounded-md hover:bg-yellow-400 transition duration-300 font-outfit"
           >
             Add
           </button>

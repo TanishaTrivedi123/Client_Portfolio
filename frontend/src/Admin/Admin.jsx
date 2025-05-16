@@ -50,12 +50,12 @@ const Admin = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-[#0f0f0f] to-gray-900 px-4">
       <div className="w-full max-w-md bg-[#1a1a1a] rounded-xl shadow-2xl p-8 border border-[#f6c610]/40 backdrop-blur-md">
-        <h2 className="text-3xl font-bold text-center text-[#f6c610] mb-8 tracking-wide">
+        <h2 className="text-3xl font-bold text-center text-[#f6c610] mb-8 tracking-wide font-poppins">
           Admin Access
         </h2>
 
         <form onSubmit={onSecretKeyHandler}>
-          <label className="block text-[#f6c610] text-sm font-medium mb-2">
+          <label className="block text-[#f6c610] text-sm font-medium mb-2 font-outfit">
             Enter Secret Key
           </label>
 
@@ -78,7 +78,7 @@ const Admin = () => {
 
           <button
             type="submit"
-            className="mt-6 w-full bg-[#f6c610] hover:bg-yellow-400 text-black font-semibold py-2 rounded-lg transition duration-300"
+            className="mt-6 w-full bg-[#f6c610] hover:bg-yellow-400 text-black font-semibold py-2 rounded-lg transition duration-300 font-outfit"
           >
             Verify
           </button>

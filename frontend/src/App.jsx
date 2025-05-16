@@ -15,20 +15,20 @@ import AddThumbnail from "./AdminAuthorized/AddThumbnail";
 import AddShortVideos from "./AdminAuthorized/AddShortVideos";
 
 const App = () => {
-  // useEffect(() => {
-  //   // Disable right-click
-  //   const handleContextMenu = (event) => {
-  //     event.preventDefault(); // Prevent right-click menu
-  //   };
+  useEffect(() => {
+    // Disable right-click
+    const handleContextMenu = (event) => {
+      event.preventDefault(); // Prevent right-click menu
+    };
 
-  //   // Attach event listener when the component mounts
-  //   document.addEventListener("contextmenu", handleContextMenu);
+    // Attach event listener when the component mounts
+    document.addEventListener("contextmenu", handleContextMenu);
 
-  //   // Cleanup on unmount
-  //   return () => {
-  //     document.removeEventListener("contextmenu", handleContextMenu);
-  //   };
-  // }, []);
+    // Cleanup on unmount
+    return () => {
+      document.removeEventListener("contextmenu", handleContextMenu);
+    };
+  }, []);
 
   return (
     <div>
