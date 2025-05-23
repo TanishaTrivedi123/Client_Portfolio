@@ -114,6 +114,8 @@ const Thumbnail = () => {
     const container = scrollRef.current;
     if (!container || !cardRefs.current.length) return;
 
+    let animationFrameId;
+
     const updateStyles = () => {
       const containerRect = container.getBoundingClientRect();
       const containerCenterX = containerRect.left + containerRect.width / 2;
@@ -136,12 +138,12 @@ const Thumbnail = () => {
       });
 
       setStyles(newStyles);
-      requestAnimationFrame(updateStyles);
+      animationFrameId = requestAnimationFrame(updateStyles);
     };
 
-    requestAnimationFrame(updateStyles);
-    return () => cancelAnimationFrame(updateStyles);
-  }, [images]);
+    animationFrameId = requestAnimationFrame(updateStyles);
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [images]); // ← Depend on `images`
 
   useEffect(() => {
     const generateDots = Array.from({ length: 10 }).map(() => ({
