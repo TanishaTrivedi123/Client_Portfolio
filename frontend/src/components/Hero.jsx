@@ -4,18 +4,27 @@ import { motion } from "framer-motion";
 const Hero = () => {
   return (
     <section className="relative w-full min-h-screen bg-black text-white flex items-center justify-center overflow-hidden">
-      {/* Floating Dots */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        {[...Array(15)].map((_, i) => (
-          <div
+      {/* Floating Particles */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        {[...Array(30)].map((_, i) => (
+          <motion.div
             key={i}
-            className="absolute w-1.5 h-1.5 bg-[#f6c610] rounded-full opacity-20 animate-pulse"
-            style={{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              animationDelay: `${i * 0.5}s`,
+            className="absolute w-2 h-2 bg-[#f6c610] rounded-full opacity-70" // <- Increased size here
+            initial={{
+              x: `${Math.random() * 100}vw`,
+              y: `${Math.random() * 100}vh`,
+              scale: Math.random() * 0.5 + 0.5,
             }}
-          ></div>
+            animate={{
+              x: `${Math.random() * 100}vw`,
+              y: `${Math.random() * 100}vh`,
+              transition: {
+                duration: Math.random() * 30 + 20,
+                repeat: Infinity,
+                repeatType: "reverse",
+              },
+            }}
+          />
         ))}
       </div>
 
@@ -43,8 +52,8 @@ const Hero = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-8 font-outfit font-medium"
           >
-            I’m a skilled Video Editor and Thumbnail Designer, dedicated to
-            crafting eye-catching videos and impactful designs. Whether it’s
+            I'm a skilled Video Editor and Thumbnail Designer, dedicated to
+            crafting eye-catching videos and impactful designs. Whether it's
             editing YouTube or Instagram content or designing attention-grabbing
             thumbnails, I bring your vision to life with precision and style.
           </motion.p>
@@ -65,53 +74,98 @@ const Hero = () => {
           />
         </motion.div>
 
-        {/* Right Side Image with 3D background */}
-        <div className="w-full md:w-1/2 flex justify-center mt-20 md:mt-0 mb-10 md:mb-0 relative perspective-[1200px]">
-          {/* Circular glowing background */}
+        {/* Futuristic Image Frame */}
+        <div className="w-full md:w-1/2 flex justify-center mt-20 md:mt-0 mb-10 md:mb-0 relative">
+          {/* Holographic Background Effect */}
           <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.8 }}
-            className="absolute w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 rounded-full bg-gradient-to-br from-[#f6c61044] to-[#f6c61011] blur-3xl shadow-[0_0_80px_#f6c61055] z-0"
-            style={{
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-            }}
-          />
-
-          {/* Main Image */}
-          <motion.div
-            initial={{ opacity: 0, rotateY: -15, rotateX: 10 }}
-            animate={{ opacity: 1, rotateY: 0, rotateX: 0 }}
-            whileHover={{ scale: 1.08, rotateY: 6 }}
-            transition={{ duration: 0.9, delay: 0.3 }}
-            className="relative z-10 w-[320px] h-[360px] sm:w-[350px] sm:h-[390px] md:w-[400px] md:h-[440px] rounded-[2rem] overflow-hidden shadow-[0_12px_50px_#f6c610aa] border-4 border-[#f6c610]"
-            style={{
-              transformStyle: "preserve-3d",
-              boxShadow: "0 0 60px #f6c61066, 0 0 30px #f6c61088 inset",
-            }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+            className="absolute inset-0 flex items-center justify-center"
           >
-            <img
-              src="photo5.png"
-              loading="lazy"
-              alt="Client"
-              className="w-full h-full object-cover rounded-[2rem] brightness-[1.05] contrast-[1.1] scale-x-[-1]"
+            <div className="absolute w-[500px] h-[500px] rounded-full bg-[#f6c61010] blur-[100px]"></div>
+          </motion.div>
+
+          {/* Futuristic Frame */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9, rotateY: -15 }}
+            animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+            whileHover={{ scale: 1.02 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="relative z-10 w-[320px] h-[360px] sm:w-[350px] sm:h-[390px] md:w-[400px] md:h-[440px]"
+          >
+            {/* Frame Border */}
+            <div className="absolute inset-0 rounded-3xl overflow-hidden p-[2px]">
+              {/* Metallic Gradient Border */}
+              <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-[#f6c610] via-[#f6c61080] to-[#f6c61010] opacity-70 blur-[1px]"></div>
+              {/* Inner Shadow */}
+              <div className="absolute inset-0 rounded-3xl shadow-[inset_0_0_20px_#00000080]"></div>
+              {/* Scan Lines */}
+              <div className="absolute inset-0 rounded-3xl bg-[linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[length:100%_4px] opacity-30"></div>
+            </div>
+
+            {/* Corner Accents */}
+            <div className="absolute top-3 left-3 w-8 h-8 border-t-2 border-l-2 border-[#f6c610] rounded-tl-lg"></div>
+            <div className="absolute top-3 right-3 w-8 h-8 border-t-2 border-r-2 border-[#f6c610] rounded-tr-lg"></div>
+            <div className="absolute bottom-3 left-3 w-8 h-8 border-b-2 border-l-2 border-[#f6c610] rounded-bl-lg"></div>
+            <div className="absolute bottom-3 right-3 w-8 h-8 border-b-2 border-r-2 border-[#f6c610] rounded-br-lg"></div>
+
+            {/* Floating Elements */}
+            <motion.div
+              className="absolute -top-5 -left-5 w-10 h-10 rounded-full bg-[#f6c610] blur-[15px] opacity-40"
+              animate={{ scale: [1, 1.2, 1] }}
+              transition={{ duration: 4, repeat: Infinity }}
             />
+            <motion.div
+              className="absolute -bottom-5 -right-5 w-12 h-12 rounded-full bg-[#f6c610] blur-[20px] opacity-30"
+              animate={{ scale: [1, 1.3, 1] }}
+              transition={{ duration: 5, repeat: Infinity, delay: 1 }}
+            />
+
+            {/* Main Image Container */}
+            <div className="relative w-full h-full rounded-2xl overflow-hidden">
+              {/* Reflective Shine */}
+              <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent pointer-events-none z-10"></div>
+
+              {/* Image */}
+              <img
+                src="photo5.png"
+                loading="lazy"
+                alt="Anuj Trivedi"
+                className="w-full h-full object-cover brightness-105 contrast-110 scale-x-[-1]"
+              />
+
+              {/* Interactive Glow */}
+              <motion.div
+                className="absolute inset-0 rounded-2xl shadow-[0_0_40px_#f6c61030] pointer-events-none"
+                animate={{ opacity: [0.3, 0.5, 0.3] }}
+                transition={{ duration: 3, repeat: Infinity }}
+              />
+            </div>
           </motion.div>
         </div>
       </motion.div>
 
-      {/* Horizontal Partition */}
+      {/* Horizontal Divider */}
       <div className="absolute bottom-8 sm:bottom-14 md:bottom-20 w-full flex justify-center items-center z-10 px-4 sm:px-8">
         <motion.div
           initial={{ opacity: 0, scaleX: 0.8 }}
           whileInView={{ opacity: 1, scaleX: 1 }}
           transition={{ duration: 1 }}
           viewport={{ once: true }}
-          className="relative w-full max-w-6xl h-[2px] bg-gradient-to-r from-transparent via-[#f6c610] to-transparent"
+          className="relative w-full max-w-6xl h-[1px] bg-gradient-to-r from-transparent via-[#f6c610] to-transparent"
         >
-          <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-[#f6c610] shadow-[0_0_20px_#f6c610,0_0_40px_#f6c610] animate-pulse"></div>
+          <motion.div
+            className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-[#f6c610]"
+            animate={{
+              boxShadow: [
+                "0 0 0 0 rgba(246, 198, 16, 0.7)",
+                "0 0 0 10px rgba(246, 198, 16, 0)",
+                "0 0 0 20px rgba(246, 198, 16, 0)",
+              ],
+            }}
+            transition={{ duration: 2, repeat: Infinity }}
+          />
         </motion.div>
       </div>
     </section>

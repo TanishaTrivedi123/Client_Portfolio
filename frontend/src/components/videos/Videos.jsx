@@ -4,7 +4,8 @@ import axios from "axios";
 import { motion } from "framer-motion";
 import { FaPlay, FaPause } from "react-icons/fa";
 import { useInView } from "react-intersection-observer";
-import { API_URL } from "../utils/api";
+import { API_URL } from "../../utils/api";
+import SkeletonVideos from "../videos/SkeletonVideos";
 
 const CARD_WIDTH = 300;
 
@@ -60,9 +61,9 @@ const VideoCard = ({ video, index, onPlay, isPlaying, isCentered }) => {
         <div className="absolute inset-0 z-10 pointer-events-none mix-blend-overlay rounded-[2.5rem]" />
         <video
           ref={setRefs}
-          src={video.src}
+          src={inView ? video.src : undefined} // only set src when in view
           className="w-full h-full object-cover rounded-[2.5rem]"
-          preload="metadata"
+          preload={inView ? "metadata" : "none"} // preload only when visible
           playsInline
           muted
           controls={false}
@@ -95,6 +96,17 @@ const Videos = () => {
   const [initialHintVisible, setInitialHintVisible] = useState(true);
   const [scrollPadding, setScrollPadding] = useState(0);
   const [hasScrolled, setHasScrolled] = useState(false);
+
+  // State for dots positions
+  const [dots, setDots] = useState(
+    Array.from({ length: 15 }).map(() => ({
+      top: Math.random() * 100,
+      left: Math.random() * 100,
+      size: Math.random() * 6 + 6,
+      directionX: (Math.random() - 0.5) * 0.1, // slow movement
+      directionY: (Math.random() - 0.5) * 0.1,
+    }))
+  );
 
   useEffect(() => {
     const updateScrollPadding = () => {
@@ -191,11 +203,49 @@ const Videos = () => {
     setPlayingIndex(playingIndex === index ? null : index);
   };
 
-  const getRandomPosition = () => ({
-    top: `${Math.random() * 100}%`,
-    left: `${Math.random() * 100}%`,
-    size: `${Math.random() * 6 + 6}px`,
-  });
+  // Animate dots floating movement continuously
+  useEffect(() => {
+    let animationFrameId;
+
+    const animateDots = () => {
+      setDots((prevDots) =>
+        prevDots.map(({ top, left, size, directionX, directionY }) => {
+          let newTop = top + directionY;
+          let newLeft = left + directionX;
+
+          // Bounce dots inside 0-100% box
+          if (newTop > 100) {
+            newTop = 100;
+            directionY = -directionY;
+          } else if (newTop < 0) {
+            newTop = 0;
+            directionY = -directionY;
+          }
+
+          if (newLeft > 100) {
+            newLeft = 100;
+            directionX = -directionX;
+          } else if (newLeft < 0) {
+            newLeft = 0;
+            directionX = -directionX;
+          }
+
+          return {
+            top: newTop,
+            left: newLeft,
+            size,
+            directionX,
+            directionY,
+          };
+        })
+      );
+      animationFrameId = requestAnimationFrame(animateDots);
+    };
+
+    animationFrameId = requestAnimationFrame(animateDots);
+
+    return () => cancelAnimationFrame(animationFrameId);
+  }, []);
 
   return (
     <section className="relative w-full min-h-[600px] bg-gradient-to-r from-[#141414] via-[#232323] to-[#0d0d0d] py-20 overflow-hidden rounded-3xl shadow-2xl shadow-yellow-700/50">
@@ -239,29 +289,28 @@ const Videos = () => {
 
       {/* Floating Dots */}
       <div className="absolute inset-0 w-full h-full z-0">
-        {Array.from({ length: 15 }).map((_, index) => {
-          const pos = getRandomPosition();
-          return (
-            <div
-              key={index}
-              className="absolute bg-[#f6c610] rounded-full animate-pulse"
-              style={{
-                top: pos.top,
-                left: pos.left,
-                width: pos.size,
-                height: pos.size,
-                filter: "drop-shadow(0 0 2px #f6c610)",
-              }}
-            />
-          );
-        })}
+        {dots.map(({ top, left, size }, index) => (
+          <div
+            key={index}
+            className="absolute bg-[#f6c610] rounded-full animate-pulse"
+            style={{
+              top: `${top}%`,
+              left: `${left}%`,
+              width: `${size}px`,
+              height: `${size}px`,
+              filter: "drop-shadow(0 0 2px #f6c610)",
+              pointerEvents: "none",
+            }}
+          />
+        ))}
       </div>
 
       {/* Scrollable Container */}
       <div
         ref={scrollRef}
-        className="relative flex overflow-x-auto no-scrollbar gap-8 md:gap-12 z-10"
+        className="relative flex overflow-x-auto no-scrollbar gap-8 md:gap-12 z-10 "
         style={{
+          minHeight: "500px",
           scrollSnapType: "x mandatory",
           WebkitOverflowScrolling: "touch",
           overflowY: "hidden",
@@ -270,16 +319,20 @@ const Videos = () => {
           maxWidth: "100vw",
         }}
       >
-        {displayVideos.map((video, index) => (
-          <VideoCard
-            key={index}
-            video={video}
-            index={index}
-            onPlay={() => handlePlay(index)}
-            isPlaying={playingIndex === index}
-            isCentered={centeredIndex === index}
-          />
-        ))}
+        {displayVideos.length === 0 ? (
+          <SkeletonVideos />
+        ) : (
+          displayVideos.map((video, index) => (
+            <VideoCard
+              key={index}
+              video={video}
+              index={index}
+              onPlay={() => handlePlay(index)}
+              isPlaying={playingIndex === index}
+              isCentered={centeredIndex === index}
+            />
+          ))
+        )}
       </div>
 
       {/* Scroll Left Indicator (appears only at END) */}
