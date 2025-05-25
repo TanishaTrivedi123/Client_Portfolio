@@ -15,8 +15,10 @@ router.post("/add-thumbnail", upload.single("image"), async (req, res) => {
 
     const newThumbnail = new AddThumbnailModel({
       image: {
-        url: image.path,
+        url: image.path || image.url,
         filename: image.filename,
+        public_id: image.filename,
+        resource_type: "image", // 🔧 required field
       },
     });
 
