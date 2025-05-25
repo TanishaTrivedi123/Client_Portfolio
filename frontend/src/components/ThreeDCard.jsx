@@ -91,7 +91,7 @@ const ThreeDCard = () => {
 
       {/* Cards */}
       <div className="w-full max-w-7xl flex flex-col md:flex-row items-center justify-between gap-10 md:gap-6 z-10">
-        {/* Right Image */}
+        {/* Left Image */}
         <div
           className="group relative w-full max-w-sm aspect-video rounded-2xl overflow-hidden border-4 border-[#0d0d0d] bg-[#0d0d0d] shadow-[0_10px 30px rgba(0, 0, 0, 0.6)]"
           style={{
@@ -100,7 +100,7 @@ const ThreeDCard = () => {
           }}
         >
           <img
-            src="photo1.png"
+            src="photo1.jpg"
             loading="lazy"
             alt="Left Thumbnail"
             className="w-full h-full object-cover rounded-2xl"
@@ -148,7 +148,7 @@ const ThreeDCard = () => {
           <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/10 z-10 pointer-events-none rounded-[2.5rem]" />
         </div>
 
-        {/* Left Image */}
+        {/* Right Image */}
         <div
           className="group relative w-full max-w-sm aspect-video rounded-2xl overflow-hidden border-4 border-[#0d0d0d] bg-[#0d0d0d] shadow-[0_10px 30px rgba(0, 0, 0, 0.6)]"
           style={{
@@ -173,12 +173,10 @@ const ThreeDCard = () => {
           transition={{ type: "spring", stiffness: 300 }}
           className="mt-20 relative z-10 group bg-[#f6c610] text-black py-3 px-9 rounded-xl font-semibold shadow-[0_0_30px_#f6c61080] hover:shadow-[0_0_45px_#f6c610cc] overflow-hidden transition-all duration-300 font-poppins"
         >
-          <span className="relative z-20 text-lg tracking-wide flex items-center gap-1">
-            Curious?{" "}
-            <span className="underline decoration-black decoration-2 underline-offset-2 hover:text-white transition-colors duration-300">
-              Gallery →
-            </span>
+          <span className="underline decoration-black decoration-2 underline-offset-2 hover:text-white transition-colors duration-300">
+            View More →
           </span>
+
           <div className="absolute inset-0 bg-gradient-to-r from-yellow-500 via-[#f6c610] to-yellow-400 opacity-0 group-hover:opacity-30 blur-md transition-opacity duration-300" />
           <div className="absolute -inset-1 rounded-xl border-2 border-yellow-300 opacity-0 group-hover:opacity-60 animate-pulse blur-md" />
         </motion.button>
