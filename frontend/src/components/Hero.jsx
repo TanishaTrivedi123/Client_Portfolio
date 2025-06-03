@@ -9,7 +9,7 @@ const Hero = () => {
         {[...Array(30)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-2 h-2 bg-[#f6c610] rounded-full opacity-70" // <- Increased size here
+            className="absolute w-2 h-2 bg-[#f6c610] rounded-full opacity-70"
             initial={{
               x: `${Math.random() * 100}vw`,
               y: `${Math.random() * 100}vh`,
@@ -33,10 +33,10 @@ const Hero = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
-        className="w-full max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col-reverse md:flex-row items-center justify-center gap-10 md:gap-20 relative z-10 py-10 sm:py-20"
+        className="w-full max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col-reverse md:flex-row items-center justify-center gap-10 md:gap-20 relative z-10 py-6 sm:py-20"
       >
         {/* Left Text */}
-        <div className="w-full md:w-1/2 text-center md:text-left -mt-14 md:mt-0">
+        <div className="w-full md:w-1/2 text-center md:text-left -mt-24 md:mt-0">
           <motion.h1
             initial={{ opacity: 0, x: -40 }}
             animate={{ opacity: 1, x: 0 }}
@@ -74,75 +74,20 @@ const Hero = () => {
           />
         </motion.div>
 
-        {/* Futuristic Image Frame */}
-        <div className="w-full md:w-1/2 flex justify-center mt-20 md:mt-0 mb-10 md:mb-0 relative">
-          {/* Holographic Background Effect */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1 }}
-            className="absolute inset-0 flex items-center justify-center"
-          >
-            <div className="absolute w-[500px] h-[500px] rounded-full bg-[#f6c61010] blur-[100px]"></div>
-          </motion.div>
-
-          {/* Futuristic Frame */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9, rotateY: -15 }}
-            animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-            whileHover={{ scale: 1.02 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="relative z-10 w-[320px] h-[360px] sm:w-[350px] sm:h-[390px] md:w-[400px] md:h-[440px]"
-          >
-            {/* Frame Border */}
-            <div className="absolute inset-0 rounded-3xl overflow-hidden p-[2px]">
-              {/* Metallic Gradient Border */}
-              <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-[#f6c610] via-[#f6c61080] to-[#f6c61010] opacity-70 blur-[1px]"></div>
-              {/* Inner Shadow */}
-              <div className="absolute inset-0 rounded-3xl shadow-[inset_0_0_20px_#00000080]"></div>
-              {/* Scan Lines */}
-              <div className="absolute inset-0 rounded-3xl bg-[linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[length:100%_4px] opacity-30"></div>
-            </div>
-
-            {/* Corner Accents */}
-            <div className="absolute top-3 left-3 w-8 h-8 border-t-2 border-l-2 border-[#f6c610] rounded-tl-lg"></div>
-            <div className="absolute top-3 right-3 w-8 h-8 border-t-2 border-r-2 border-[#f6c610] rounded-tr-lg"></div>
-            <div className="absolute bottom-3 left-3 w-8 h-8 border-b-2 border-l-2 border-[#f6c610] rounded-bl-lg"></div>
-            <div className="absolute bottom-3 right-3 w-8 h-8 border-b-2 border-r-2 border-[#f6c610] rounded-br-lg"></div>
-
-            {/* Floating Elements */}
-            <motion.div
-              className="absolute -top-5 -left-5 w-10 h-10 rounded-full bg-[#f6c610] blur-[15px] opacity-40"
-              animate={{ scale: [1, 1.2, 1] }}
-              transition={{ duration: 4, repeat: Infinity }}
-            />
-            <motion.div
-              className="absolute -bottom-5 -right-5 w-12 h-12 rounded-full bg-[#f6c610] blur-[20px] opacity-30"
-              animate={{ scale: [1, 1.3, 1] }}
-              transition={{ duration: 5, repeat: Infinity, delay: 1 }}
-            />
-
-            {/* Main Image Container */}
-            <div className="relative w-full h-full rounded-2xl overflow-hidden">
-              {/* Reflective Shine */}
-              <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent pointer-events-none z-10"></div>
-
-              {/* Image */}
-              <img
-                src="photo5.png"
-                loading="lazy"
-                alt="Anuj Trivedi"
-                className="w-full h-full object-cover brightness-105 contrast-110 scale-x-[-1]"
-              />
-
-              {/* Interactive Glow */}
-              <motion.div
-                className="absolute inset-0 rounded-2xl shadow-[0_0_40px_#f6c61030] pointer-events-none"
-                animate={{ opacity: [0.3, 0.5, 0.3] }}
-                transition={{ duration: 3, repeat: Infinity }}
-              />
-            </div>
-          </motion.div>
+        {/* Updated Image Section for Better Mobile Spacing */}
+        <div className="w-full md:w-1/2 flex justify-center -mt-16 sm:-mt-20 md:-mt-24 mb-4 sm:mb-8 md:mb-0 relative z-10">
+          <img
+            src="photo8.png"
+            loading="lazy"
+            alt="Anuj Trivedi"
+            className="w-[360px] h-[480px]
+       sm:w-[520px] sm:h-[520px] 
+       md:w-[480px] md:h-[560px] 
+       lg:w-[680px] lg:h-[760px] 
+       xl:w-[620px] xl:h-[700px] 
+       object-cover rounded-3xl
+       transition-transform duration-300 hover:scale-105"
+          />
         </div>
       </motion.div>
 
