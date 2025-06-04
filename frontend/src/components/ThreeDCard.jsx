@@ -106,7 +106,7 @@ const ThreeDCard = () => {
           {/* Video Content */}
           <video
             ref={videoRef}
-            src="video2(1).mp4"
+            src="video2.mp4"
             loading="lazy"
             loop
             playsInline
