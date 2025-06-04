@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import gsap from "gsap";
+import FloatingDots from "../components/FloatingDots";
 
 const Contact = () => {
   useEffect(() => {
@@ -46,25 +47,9 @@ const Contact = () => {
         ))}
       </ul>
 
-      {/* Dots Grid Background */}
-      <svg
-        className="absolute inset-0 w-full h-full z-0 opacity-30"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <defs>
-          <pattern
-            id="dots"
-            x="0"
-            y="0"
-            width="20"
-            height="20"
-            patternUnits="userSpaceOnUse"
-          >
-            <circle cx="1" cy="1" r="1" fill="#f6c610" />
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#dots)" />
-      </svg>
+      {/* Dots Background */}
+      <div className="absolute inset-0 z-0 bg-black/90 backdrop-blur-sm" />
+      <FloatingDots />
 
       {/* Content */}
       <div className="gsap-about max-w-2xl w-full text-center relative z-10">

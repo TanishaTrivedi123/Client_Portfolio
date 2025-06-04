@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { NavLink } from "react-router-dom";
 import { FaPlay, FaPause } from "react-icons/fa"; // Import play and pause icons from React Icons
+import FloatingDots from "../components/FloatingDots";
 
 const ThreeDCard = () => {
   const sectionRef = useRef(null);
@@ -61,22 +62,8 @@ const ThreeDCard = () => {
       </div>
 
       {/* Floating Dots */}
-      <div className="absolute inset-0 pointer-events-none z-[1]">
-        {[...Array(25)].map((_, i) => (
-          <span
-            key={i}
-            className="absolute w-[6px] h-[6px] rounded-full bg-[#f6c610] opacity-70 animate-pulse"
-            style={{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              animationDuration: `${2 + Math.random() * 3}s`,
-              animationDelay: `${Math.random() * 2}s`,
-              transform: `scale(${0.5 + Math.random() * 0.8})`,
-              animationName: "floatDot",
-            }}
-          />
-        ))}
-      </div>
+      <div className="absolute inset-0 z-0 bg-black/90 backdrop-blur-sm" />
+      <FloatingDots />
 
       {/* Heading */}
       <div className="text-center mb-16 z-10">

@@ -6,6 +6,7 @@ import { FaPlay, FaPause } from "react-icons/fa";
 import { useInView } from "react-intersection-observer";
 import { API_URL } from "../../utils/api";
 import SkeletonVideos from "../videos/SkeletonVideos";
+import FloatingDots from "../../components/FloatingDots";
 
 const CARD_WIDTH = 300;
 
@@ -51,7 +52,7 @@ const VideoCard = ({ video, index, onPlay, isPlaying, isCentered }) => {
     >
       <div
         onClick={onPlay}
-        className="relative cursor-pointer transition-all duration-500 rounded-[2.5rem] bg-[#0d0d0d] border-[10px] border-[#000] overflow-hidden shadow-[inset_0_0_20px_rgba(255,255,255,0.1)]"
+        className="relative cursor-pointer transition-all duration-500 rounded-[2.5rem] bg-[#0d0d0d] border-[10px] border-[#0d0d0d] overflow-hidden shadow-[0_0_25px_rgba(246,198,16,0.6)] "
         style={{
           aspectRatio: "9 / 16",
           maxWidth: "300px",
@@ -248,24 +249,9 @@ const Videos = () => {
   }, []);
 
   return (
-    <section className="relative w-full min-h-[600px] bg-gradient-to-r from-[#141414] via-[#232323] to-[#0d0d0d] py-20 overflow-hidden rounded-3xl shadow-2xl shadow-yellow-700/50">
-      {/* Background Pattern */}
-      <svg className="absolute inset-0 w-full h-full z-0 opacity-30">
-        <defs>
-          <pattern
-            id="dots"
-            x="0"
-            y="0"
-            width="20"
-            height="20"
-            patternUnits="userSpaceOnUse"
-          >
-            <circle cx="1" cy="1" r="1" fill="#f6c610" />
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#dots)" />
-      </svg>
-
+    <section className="relative w-full min-h-[720px] bg-gradient-to-r from-[#141414] via-[#232323] to-[#0d0d0d] py-14 overflow-hidden">
+      <div className="absolute inset-0 z-0 bg-black/90 backdrop-blur-sm" />
+      <FloatingDots />
       <motion.h2
         initial={{ opacity: 0, y: -50 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -308,15 +294,16 @@ const Videos = () => {
       {/* Scrollable Container */}
       <div
         ref={scrollRef}
-        className="relative flex overflow-x-auto no-scrollbar gap-8 md:gap-12 z-10 "
+        className="relative flex overflow-x-auto no-scrollbar gap-8 md:gap-12 z-10"
         style={{
-          minHeight: "500px",
+          minHeight: "720px",
           scrollSnapType: "x mandatory",
           WebkitOverflowScrolling: "touch",
           overflowY: "hidden",
           paddingLeft: `${scrollPadding}px`,
           paddingRight: `${scrollPadding}px`,
           maxWidth: "100vw",
+          alignItems: "center",
         }}
       >
         {displayVideos.length === 0 ? (

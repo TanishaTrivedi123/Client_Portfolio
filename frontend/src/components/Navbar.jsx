@@ -40,7 +40,7 @@ const Navbar = () => {
                 className="text-4xl font-poppins cursor-pointer sm:text-3xl md:text-4xl"
                 whileHover={{ scale: 1.05 }}
               >
-                <span className="text-[#f6c610]">My</span>
+                <span className="text-[#f6c610] ">My</span>
                 <span className="text-white">Portfolio</span>
               </motion.div>
             </NavLink>

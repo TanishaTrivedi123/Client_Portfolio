@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { API_URL } from "../utils/api";
 import Skeleton from "@mui/material/Skeleton";
 import Box from "@mui/material/Box";
+import FloatingDots from "../components/FloatingDots";
 
 // Updated Skeleton Loader matching thumbnail size
 const SkeletonThumbnail = () => {
@@ -158,25 +159,8 @@ const Thumbnail = () => {
 
   return (
     <section className="relative w-full bg-gradient-to-r from-[#141414] via-[#232323] to-[#0d0d0d] py-24 overflow-hidden">
-      <svg
-        className="absolute inset-0 w-full h-full z-0 opacity-30"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <defs>
-          <pattern
-            id="dots"
-            x="0"
-            y="0"
-            width="20"
-            height="20"
-            patternUnits="userSpaceOnUse"
-          >
-            <circle cx="1" cy="1" r="1" fill="#f6c610" />
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#dots)" />
-      </svg>
-
+      <div className="absolute inset-0 z-0 bg-black/90 backdrop-blur-sm" />
+      <FloatingDots />
       <motion.h2
         initial={{ opacity: 0, y: -50 }}
         whileInView={{ opacity: 1, y: 0 }}

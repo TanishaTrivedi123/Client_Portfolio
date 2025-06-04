@@ -1,32 +1,12 @@
 import React from "react";
 import { motion } from "framer-motion";
+import FloatingDots from "../components/FloatingDots";
 
 const Hero = () => {
   return (
     <section className="relative w-full min-h-screen bg-black text-white flex items-center justify-center overflow-hidden">
-      {/* Floating Particles */}
-      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        {[...Array(30)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-2 h-2 bg-[#f6c610] rounded-full opacity-70"
-            initial={{
-              x: `${Math.random() * 100}vw`,
-              y: `${Math.random() * 100}vh`,
-              scale: Math.random() * 0.5 + 0.5,
-            }}
-            animate={{
-              x: `${Math.random() * 100}vw`,
-              y: `${Math.random() * 100}vh`,
-              transition: {
-                duration: Math.random() * 30 + 20,
-                repeat: Infinity,
-                repeatType: "reverse",
-              },
-            }}
-          />
-        ))}
-      </div>
+      <div className="absolute inset-0 z-0 bg-black/90 backdrop-blur-sm" />
+      <FloatingDots />
 
       {/* Main Content */}
       <motion.div
