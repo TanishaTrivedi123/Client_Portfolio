@@ -140,7 +140,10 @@ const Thumbnail = () => {
       animationFrameId = requestAnimationFrame(updateStyles);
     };
 
-    animationFrameId = requestAnimationFrame(updateStyles);
+    setTimeout(() => {
+      animationFrameId = requestAnimationFrame(updateStyles);
+    }, 100); // Add delay to ensure DOM is painted fully
+
     return () => cancelAnimationFrame(animationFrameId);
   }, [images]); // ← Depend on `images`
 
