@@ -18,3 +18,19 @@ body {
   -moz-user-select: none;
   -ms-user-select: none;
 }
+
+/* style scrollbar */
+body::-webkit-scrollbar {
+  width: 10px;
+  background-color: #121212;
+  border-radius: 5px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #3d3d3d;
+  border-radius: 5px;
+}
+
+body::-webkit-scrollbar-thumb:active {
+  background-color: #555555;
+}
