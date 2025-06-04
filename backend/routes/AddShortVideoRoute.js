@@ -17,8 +17,10 @@ router.post("/add-video", upload.single("video"), async (req, res) => {
 
     const newVideo = new VideoModel({
       video: {
-        url: video.path,
+        url: video.path || video.url,
         filename: video.filename,
+        public_id: video.filename,
+        resource_type: "video",
       },
     });
 
