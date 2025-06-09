@@ -8,7 +8,7 @@ const FloatingDots = () => {
     const ctx = canvas.getContext("2d");
     let animationFrameId;
 
-    const colors = ["#f6c610", "#ffffff", "#999999"]; // Updated portfolio colors
+    const colors = ["#7F5AF0", "#E0E0E0", "#999999"]; // Updated portfolio colors
     const dots = Array.from({ length: 70 }, () => ({
       x: Math.random() * window.innerWidth,
       y: Math.random() * window.innerHeight,

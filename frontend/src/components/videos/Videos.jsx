@@ -52,7 +52,8 @@ const VideoCard = ({ video, index, onPlay, isPlaying, isCentered }) => {
     >
       <div
         onClick={onPlay}
-        className="relative cursor-pointer transition-all duration-500 rounded-[2.5rem] bg-[#0d0d0d] border-[10px] border-[#0d0d0d] overflow-hidden shadow-[0_0_25px_rgba(246,198,16,0.6)] "
+        className="relative cursor-pointer transition-all duration-500 rounded-[2.5rem] bg-[#0d0d0d] border-[6px] border-black 
+                     bg-gradient-to-br from-[#1e1b33] to-[#2b2645] shadow-[0_0_45px_#673AB780] "
         style={{
           aspectRatio: "9 / 16",
           maxWidth: "300px",
@@ -249,7 +250,7 @@ const Videos = () => {
   }, []);
 
   return (
-    <section className="relative w-full min-h-[720px] bg-gradient-to-r from-[#141414] via-[#232323] to-[#0d0d0d] py-14 overflow-hidden">
+    <section className="relative w-full min-h-[720px] bg-gradient-to-r from-[#141414] via-[#232323] to-[#0d0d0d] pt-24 overflow-hidden">
       <div className="absolute inset-0 z-0 bg-black/90 backdrop-blur-sm" />
       <FloatingDots />
       <motion.h2
@@ -257,7 +258,14 @@ const Videos = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, delay: 0.1 }}
         viewport={{ once: true }}
-        className="text-center text-4xl md:text-5xl font-bold text-[#f6c610] mb-6 tracking-wide z-10 drop-shadow-lg font-poppins"
+        className="text-center 
+          text-3xl sm:text-4xl md:text-5xl lg:text-6xl 
+          font-extrabold 
+          tracking-wide 
+          text-[#7F5AF0]
+          drop-shadow-[0_0_15px_#7F5AF0]  
+          font-poppins
+          mb-6"
       >
         Edits (Short Videos)
       </motion.h2>
@@ -267,7 +275,16 @@ const Videos = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4, duration: 0.8 }}
         viewport={{ once: true }}
-        className="text-center text-base md:text-lg max-w-3xl mx-auto text-gray-300 px-4 mb-14 z-10 relative font-outfit"
+        className="text-center 
+          text-base sm:text-lg md:text-xl 
+          max-w-3xl 
+          mx-auto 
+          text-[#E0E0E0] 
+          font-outfit
+          leading-loose
+          px-2 sm:px-4
+          tracking-wide
+          drop-shadow-[0_1px_3px_rgba(0,0,0,0.7)]"
       >
         Crafted for impact — these short clips have boosted engagement, told
         compelling stories, and delivered real results.

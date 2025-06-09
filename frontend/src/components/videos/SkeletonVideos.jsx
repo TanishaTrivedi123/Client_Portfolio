@@ -1,10 +1,10 @@
-// SkeletonThumbnail.jsx
+// SkeletonVideos.jsx
 import React from "react";
 import { Skeleton } from "@mui/material";
 import Box from "@mui/material/Box";
 
 const SkeletonVideos = () => {
-  const dummyArray = Array.from({ length: 4 }); // Number of thumbnails to load
+  const dummyArray = Array.from({ length: 6 }); // Number of thumbnails to load
 
   return (
     <div
@@ -18,11 +18,11 @@ const SkeletonVideos = () => {
         <Box
           key={index}
           sx={{
-            bgcolor: "#000",
+            bgcolor: "#000", // background behind skeleton
             borderRadius: "2rem",
-            border: "4px solid #f6c610",
-            height: { xs: 250, sm: 350, md: 420, lg: 460 }, // Phone-style height
-            minWidth: { xs: 140, sm: 200, md: 250, lg: 280 }, // Phone-style width
+            border: "4px solid #7F5AF0", // new purple-blue border
+            height: { xs: 250, sm: 350, md: 420, lg: 460 },
+            minWidth: { xs: 140, sm: 200, md: 250, lg: 280 },
             flexShrink: 0,
             display: "flex",
             alignItems: "center",
@@ -34,7 +34,7 @@ const SkeletonVideos = () => {
             variant="rectangular"
             animation="wave"
             sx={{
-              bgcolor: "grey.900",
+              bgcolor: "bg-gradient-to-br from-[#1e1b33] to-[#2b2645]",
               height: "95%",
               width: "95%",
               borderRadius: "1.5rem",

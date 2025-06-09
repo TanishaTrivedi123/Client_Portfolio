@@ -75,15 +75,15 @@ const AddVideo = () => {
 
   return (
     <div className="min-h-screen bg-black flex items-center justify-center px-4">
-      <div className="bg-[#0d0d0d] p-8 rounded-2xl shadow-lg w-full max-w-md border border-[#f6c610]">
-        <h2 className="text-2xl font-semibold text-center text-[#f6c610] mb-6 font-poppins">
+      <div className="bg-[#0d0d0d] p-8 rounded-2xl shadow-lg w-full max-w-md border border-pink-400">
+        <h2 className="text-2xl font-semibold text-center text-pink-400 mb-6 font-poppins">
           Upload Video
         </h2>
 
         {/* Preview Circle */}
         <div className="flex justify-center mb-6">
           <div
-            className="cursor-pointer w-32 h-32 rounded-full overflow-hidden border-4 border-[#f6c610] flex items-center justify-center bg-[#1a1a1a] hover:scale-105 transition-transform duration-300"
+            className="cursor-pointer w-32 h-32 rounded-full overflow-hidden border-4 border-pink-500 flex items-center justify-center bg-[#1a1a1a] hover:scale-105 transition-transform duration-300"
             onClick={() => fileInputRef.current.click()}
           >
             {preview ? (
@@ -117,7 +117,7 @@ const AddVideo = () => {
         <form onSubmit={handleUpload} className="flex flex-col gap-4">
           <button
             type="submit"
-            className="bg-[#f6c610] text-black font-bold py-2 rounded-md hover:bg-yellow-400 transition duration-300 font-outfit"
+            className="bg-gradient-to-r from-[#FF61C7] via-[#7F5AF0] to-[#2e026d] hover:brightness-110 text-black font-bold py-2 rounded-md transition duration-300 font-outfit"
           >
             Add
           </button>
