@@ -155,7 +155,7 @@ const ThreeDCard = () => {
             className="group bg-gradient-to-r from-[#7b5af0] via-[#8f3eff] to-[#3ad4f0] text-black py-3 px-9 rounded-xl font-semibold shadow-[0_0_30px_rgba(123,90,240,0.6)] hover:shadow-[0_0_45px_rgba(58,212,240,0.9)] overflow-hidden transition-all duration-300 font-poppins"
           >
             <span className="underline decoration-black decoration-2 underline-offset-2 hover:text-white transition-colors duration-300">
-              Watch Videos →
+              View Edits →
             </span>
             <div className="absolute inset-0 bg-gradient-to-r from-[#8f3eff] via-[#3ad4f0] to-[#7b5af0] opacity-0 group-hover:opacity-30 blur-md transition-opacity duration-300" />
             <div className="absolute -inset-1 rounded-xl border-2 border-[#8f3eff] opacity-0 group-hover:opacity-60 animate-pulse blur-md" />

@@ -36,16 +36,16 @@ const CategoryButtons = () => {
       {shouldShowLoader ? (
         <SkeletonLoaderBox
           count={6}
-          className="min-w-[160px] h-[48px] sm:h-[56px] lg:h-[64px]"
+          className="min-w-[120px] h-[36px] sm:h-[48px] lg:h-[64px]"
         />
       ) : (
         <div
           className={`
             no-scrollbar
-            grid lg:grid-cols-6 gap-6
+            grid lg:grid-cols-6 gap-4 sm:gap-6
             overflow-x-auto lg:overflow-x-visible
             grid-flow-col lg:grid-flow-row
-            auto-cols-[minmax(160px,1fr)]
+            auto-cols-[minmax(120px,1fr)] sm:auto-cols-[minmax(160px,1fr)]
             snap-x snap-mandatory lg:snap-none
             scrollbar-hide pb-4 px-2
             py-2 sm:py-3 lg:py-4
@@ -63,9 +63,9 @@ const CategoryButtons = () => {
                 scale: 0.97,
               }}
               className={`
-                relative font-semibold rounded-xl
-                text-sm sm:text-base lg:text-lg
-                py-2.5 px-5 sm:py-3 sm:px-6 lg:py-4 lg:px-8
+                relative font-semibold rounded-lg sm:rounded-xl
+                text-xs sm:text-base lg:text-lg
+                py-1.5 px-3 sm:py-3 sm:px-6 lg:py-4 lg:px-8
                 bg-transparent text-[#E0E0E0]
                 transition duration-300 ease-in-out
                 cursor-pointer
@@ -77,20 +77,20 @@ const CategoryButtons = () => {
               `}
               style={{
                 boxShadow:
-                  "0 0 12px #7F5AF0, 0 0 18px #3EECAC, 0 0 24px #FF61D2",
-                minWidth: "160px",
+                  "0 0 8px #7F5AF0, 0 0 12px #3EECAC, 0 0 16px #FF61D2",
+                minWidth: "120px",
               }}
             >
               {/* Glow gradient background layer */}
               <span
-                className="absolute inset-0 z-[-1] rounded-xl pointer-events-none"
+                className="absolute inset-0 z-[-1] rounded-lg sm:rounded-xl pointer-events-none"
                 style={{
                   background:
                     "radial-gradient(circle at 30% 30%, rgba(127,90,240,0.25), transparent 70%)",
-                  filter: "blur(8px)",
+                  filter: "blur(6px) sm:blur(8px)",
                 }}
               />
-              <span className="absolute inset-0 rounded-xl z-[-2]" />
+              <span className="absolute inset-0 rounded-lg sm:rounded-xl z-[-2]" />
               {cat.name}
             </motion.button>
           ))}
