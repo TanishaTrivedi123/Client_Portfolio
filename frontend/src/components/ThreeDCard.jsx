@@ -131,21 +131,37 @@ const ThreeDCard = () => {
       </div>
 
       {/* Button */}
-      <NavLink to="/projects">
-        <motion.button
-          whileHover={{ scale: 1.08, y: -6 }}
-          whileTap={{ scale: 0.98 }}
-          transition={{ type: "spring", stiffness: 300 }}
-          className="mt-20 relative z-10 group bg-gradient-to-r from-[#7b5af0] via-[#8f3eff] to-[#3ad4f0] text-black py-3 px-9 rounded-xl font-semibold shadow-[0_0_30px_rgba(123,90,240,0.6)] hover:shadow-[0_0_45px_rgba(58,212,240,0.9)] overflow-hidden transition-all duration-300 font-poppins"
-        >
-          <span className="underline decoration-black decoration-2 underline-offset-2 hover:text-white transition-colors duration-300">
-            View More →
-          </span>
+      <div className="mt-20 relative z-10 flex flex-wrap gap-8 md:gap-10 justify-center">
+        <NavLink to="/thumbnails">
+          <motion.button
+            whileHover={{ scale: 1.08, y: -6 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ type: "spring", stiffness: 300 }}
+            className="group bg-gradient-to-r from-[#7b5af0] via-[#8f3eff] to-[#3ad4f0] text-black py-3 px-9 rounded-xl font-semibold shadow-[0_0_30px_rgba(123,90,240,0.6)] hover:shadow-[0_0_45px_rgba(58,212,240,0.9)] overflow-hidden transition-all duration-300 font-poppins"
+          >
+            <span className="underline decoration-black decoration-2 underline-offset-2 hover:text-white transition-colors duration-300">
+              View Thumbnails →
+            </span>
+            <div className="absolute inset-0 bg-gradient-to-r from-[#8f3eff] via-[#3ad4f0] to-[#7b5af0] opacity-0 group-hover:opacity-30 blur-md transition-opacity duration-300" />
+            <div className="absolute -inset-1 rounded-xl border-2 border-[#8f3eff] opacity-0 group-hover:opacity-60 animate-pulse blur-md" />
+          </motion.button>
+        </NavLink>
 
-          <div className="absolute inset-0 bg-gradient-to-r from-[#8f3eff] via-[#3ad4f0] to-[#7b5af0] opacity-0 group-hover:opacity-30 blur-md transition-opacity duration-300" />
-          <div className="absolute -inset-1 rounded-xl border-2 border-[#8f3eff] opacity-0 group-hover:opacity-60 animate-pulse blur-md" />
-        </motion.button>
-      </NavLink>
+        <NavLink to="/videos">
+          <motion.button
+            whileHover={{ scale: 1.08, y: -6 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ type: "spring", stiffness: 300 }}
+            className="group bg-gradient-to-r from-[#7b5af0] via-[#8f3eff] to-[#3ad4f0] text-black py-3 px-9 rounded-xl font-semibold shadow-[0_0_30px_rgba(123,90,240,0.6)] hover:shadow-[0_0_45px_rgba(58,212,240,0.9)] overflow-hidden transition-all duration-300 font-poppins"
+          >
+            <span className="underline decoration-black decoration-2 underline-offset-2 hover:text-white transition-colors duration-300">
+              Watch Videos →
+            </span>
+            <div className="absolute inset-0 bg-gradient-to-r from-[#8f3eff] via-[#3ad4f0] to-[#7b5af0] opacity-0 group-hover:opacity-30 blur-md transition-opacity duration-300" />
+            <div className="absolute -inset-1 rounded-xl border-2 border-[#8f3eff] opacity-0 group-hover:opacity-60 animate-pulse blur-md" />
+          </motion.button>
+        </NavLink>
+      </div>
     </motion.section>
   );
 };
