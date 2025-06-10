@@ -66,7 +66,7 @@ const Footer = () => {
               <FaLinkedin className="hover:scale-110 transition" />
             </a>
             <a
-              href="https://instagram.com"
+              href="https://www.instagram.com/antrivxsoon?igsh=djZ5ZDdsdDN6aTlj"
               target="_blank"
               rel="noopener noreferrer"
             >

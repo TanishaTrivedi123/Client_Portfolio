@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { NavLink } from "react-router-dom";
 import { FaPlay, FaPause } from "react-icons/fa";
-import FloatingDots from "../components/FloatingDots";
+import FloatingDots from "../components/shared/FloatingDots";
 
 const ThreeDCard = () => {
   const sectionRef = useRef(null);

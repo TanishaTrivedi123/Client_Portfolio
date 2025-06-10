@@ -6,7 +6,7 @@ import { FaPlay, FaPause } from "react-icons/fa";
 import { useInView } from "react-intersection-observer";
 import { API_URL } from "../../utils/api";
 import SkeletonVideos from "../videos/SkeletonVideos";
-import FloatingDots from "../../components/FloatingDots";
+import FloatingDots from "../../components/shared/FloatingDots";
 
 const CARD_WIDTH = 300;
 

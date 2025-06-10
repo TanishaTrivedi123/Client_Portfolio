@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import FloatingDots from "../components/FloatingDots";
+import FloatingDots from "../components/shared/FloatingDots";
 
 const Hero = () => {
   return (

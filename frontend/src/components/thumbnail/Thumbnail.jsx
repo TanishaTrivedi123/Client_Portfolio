@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { motion } from "framer-motion";
 
-import FloatingDots from "../FloatingDots";
+import FloatingDots from "../shared/FloatingDots";
 import { API_URL } from "../../utils/api";
 import SkeletonLoaderBox from "../shared/SkeletonLoaderBox";
 

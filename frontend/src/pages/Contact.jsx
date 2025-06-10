@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import gsap from "gsap";
-import FloatingDots from "../components/FloatingDots";
+import FloatingDots from "../components/shared/FloatingDots";
 
 const Contact = () => {
   useEffect(() => {
