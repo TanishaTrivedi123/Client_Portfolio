@@ -72,7 +72,7 @@ const Footer = () => {
             >
               <FaInstagram className="hover:scale-110 transition" />
             </a>
-            <a href="mailto:anuj@example.com">
+            <a href="antrivofficial@gmail.com">
               <FaEnvelope className="hover:scale-110 transition" />
             </a>
           </div>
