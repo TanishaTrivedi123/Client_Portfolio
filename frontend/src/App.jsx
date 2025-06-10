@@ -22,18 +22,18 @@ const App = () => {
   const [loading, setLoading] = useState(true);
   const location = useLocation();
 
-  // useEffect(() => {
-  //   // Disable right-click
-  //   const handleContextMenu = (event) => {
-  //     event.preventDefault();
-  //   };
+  useEffect(() => {
+    // Disable right-click
+    const handleContextMenu = (event) => {
+      event.preventDefault();
+    };
 
-  //   document.addEventListener("contextmenu", handleContextMenu);
+    document.addEventListener("contextmenu", handleContextMenu);
 
-  //   return () => {
-  //     document.removeEventListener("contextmenu", handleContextMenu);
-  //   };
-  // }, []);
+    return () => {
+      document.removeEventListener("contextmenu", handleContextMenu);
+    };
+  }, []);
 
   useEffect(() => {
     // Show loader when route changes
