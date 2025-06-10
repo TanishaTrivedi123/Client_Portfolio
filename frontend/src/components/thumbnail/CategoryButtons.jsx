@@ -3,18 +3,23 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { API_URL } from "../../utils/api";
+import SkeletonLoaderBox from "../shared/SkeletonLoaderBox";
 
 const CategoryButtons = () => {
   const [categories, setCategories] = useState([]);
+  const [hasFetched, setHasFetched] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
+        setHasFetched(false);
         const res = await axios.get(`${API_URL}/categories`);
         setCategories(res.data);
       } catch (err) {
         console.error("Failed to fetch categories:", err);
+      } finally {
+        setHasFetched(true);
       }
     };
     fetchCategories();
@@ -24,57 +29,72 @@ const CategoryButtons = () => {
     navigate(`/thumbnails/${encodeURIComponent(categoryName)}`);
   };
 
-  return (
-    <div className="pt-24 flex flex-wrap justify-center gap-12 mb-12 z-10 relative px-4 sm:px-8">
-      {categories.length === 0 ? (
-        <p className="text-[#7F5AF0] text-xl">No categories available</p>
-      ) : (
-        categories.map((cat) => (
-          <motion.button
-            key={cat._id || cat.name}
-            onClick={() => handleCategoryClick(cat.name)}
-            whileHover={{
-              scale: 1.06,
-              color: "#E0E0E0",
-            }}
-            whileTap={{
-              scale: 0.97,
-            }}
-            className={`
-              relative font-semibold rounded-xl
-              text-lg sm:text-xl md:text-2xl
-              py-4 px-10
-              bg-transparent text-[#E0E0E0]
-              transition duration-300 ease-in-out
-              cursor-pointer
-              flex items-center justify-center
-              select-none border border-[#7F5AF0]
+  const shouldShowLoader = !hasFetched || categories.length === 0;
 
-              flex-basis-full max-w-full
-              sm:flex-basis-[48%] sm:max-w-[48%]
-              md:flex-basis-[31%] md:max-w-[31%]
-              lg:flex-basis-[28%] lg:max-w-[28%]
-              min-w-[250px]
-              backdrop-blur-md
-              overflow-hidden
-            `}
-            style={{
-              boxShadow: "0 0 12px #7F5AF0, 0 0 18px #3EECAC, 0 0 24px #FF61D2", // permanent multi-color shadow
-            }}
-          >
-            {/* Glow gradient background layer */}
-            <span
-              className="absolute inset-0 z-[-1] rounded-xl pointer-events-none"
-              style={{
-                background:
-                  "radial-gradient(circle at 30% 30%, rgba(127,90,240,0.25), transparent 70%)",
-                filter: "blur(8px)",
+  return (
+    <div className="pt-24 mb-6 sm:mb-8 lg:mb-12 z-10 relative px-4 sm:px-6">
+      {shouldShowLoader ? (
+        <SkeletonLoaderBox
+          count={6}
+          className="min-w-[160px] h-[48px] sm:h-[56px] lg:h-[64px]"
+        />
+      ) : (
+        <div
+          className={`
+            no-scrollbar
+            grid lg:grid-cols-6 gap-6
+            overflow-x-auto lg:overflow-x-visible
+            grid-flow-col lg:grid-flow-row
+            auto-cols-[minmax(160px,1fr)]
+            snap-x snap-mandatory lg:snap-none
+            scrollbar-hide pb-4 px-2
+            py-2 sm:py-3 lg:py-4
+          `}
+        >
+          {categories.map((cat) => (
+            <motion.button
+              key={cat._id || cat.name}
+              onClick={() => handleCategoryClick(cat.name)}
+              whileHover={{
+                scale: 1.06,
+                color: "#E0E0E0",
               }}
-            />
-            <span className="absolute inset-0 rounded-xl z-[-2]" />
-            {cat.name}
-          </motion.button>
-        ))
+              whileTap={{
+                scale: 0.97,
+              }}
+              className={`
+                relative font-semibold rounded-xl
+                text-sm sm:text-base lg:text-lg
+                py-2.5 px-5 sm:py-3 sm:px-6 lg:py-4 lg:px-8
+                bg-transparent text-[#E0E0E0]
+                transition duration-300 ease-in-out
+                cursor-pointer
+                flex items-center justify-center
+                select-none border border-[#7F5AF0]
+                backdrop-blur-md
+                overflow-hidden
+                snap-start
+              `}
+              style={{
+                boxShadow:
+                  "0 0 12px #7F5AF0, 0 0 18px #3EECAC, 0 0 24px #FF61D2",
+                minWidth: "160px",
+              }}
+            >
+              {/* Glow gradient background layer */}
+              <span
+                className="absolute inset-0 z-[-1] rounded-xl pointer-events-none"
+                style={{
+                  background:
+                    "radial-gradient(circle at 30% 30%, rgba(127,90,240,0.25), transparent 70%)",
+                  filter: "blur(8px)",
+                }}
+              />
+              <span className="absolute inset-0 rounded-xl z-[-2]" />
+              {cat.name}
+            </motion.button>
+          ))}
+        </div>
       )}
     </div>
   );

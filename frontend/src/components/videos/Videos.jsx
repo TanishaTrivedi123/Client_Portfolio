@@ -267,7 +267,7 @@ const Videos = () => {
           font-poppins
           mb-6"
       >
-        Edits (Short Videos)
+        Videos
       </motion.h2>
 
       <motion.p

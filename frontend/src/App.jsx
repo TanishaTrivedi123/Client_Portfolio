@@ -18,20 +18,20 @@ import AddCategoryForm from "./AdminAuthorized/AddCategoryForm";
 import Thumbnail from "./components/thumbnail/Thumbnail";
 
 const App = () => {
-  // useEffect(() => {
-  //   // Disable right-click
-  //   const handleContextMenu = (event) => {
-  //     event.preventDefault(); // Prevent right-click menu
-  //   };
+  useEffect(() => {
+    // Disable right-click
+    const handleContextMenu = (event) => {
+      event.preventDefault(); // Prevent right-click menu
+    };
 
-  //   // Attach event listener when the component mounts
-  //   document.addEventListener("contextmenu", handleContextMenu);
+    // Attach event listener when the component mounts
+    document.addEventListener("contextmenu", handleContextMenu);
 
-  //   // Cleanup on unmount
-  //   return () => {
-  //     document.removeEventListener("contextmenu", handleContextMenu);
-  //   };
-  // }, []);
+    // Cleanup on unmount
+    return () => {
+      document.removeEventListener("contextmenu", handleContextMenu);
+    };
+  }, []);
 
   return (
     <div className="flex flex-col min-h-screen">

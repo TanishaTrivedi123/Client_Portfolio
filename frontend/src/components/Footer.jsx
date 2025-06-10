@@ -1,5 +1,5 @@
 import React from "react";
-import { FaInstagram, FaLinkedin, FaEnvelope, FaGithub } from "react-icons/fa";
+import { FaInstagram, FaLinkedin, FaEnvelope } from "react-icons/fa";
 
 const Footer = () => {
   return (
@@ -10,7 +10,10 @@ const Footer = () => {
           <h2 className="text-xl font-bold text-[#7F5AF0] mb-4 font-poppins">
             About Me
           </h2>
-          <p className="text-sm text-[#E0E0E0] leading-relaxed max-w-xs font-outfit">
+          <p
+            className="text-sm text-[#E0E0E0] leading-relaxed max-w-xs font-outfit tracking-wide
+          drop-shadow-[0_1px_3px_rgba(0,0,0,0.7)]"
+          >
             I’m Anuj Trivedi, a passionate Video Editor and Thumbnail Designer.
             I aim to bring ideas to life with creativity, detail, and impactful
             visuals.
@@ -22,7 +25,10 @@ const Footer = () => {
           <h2 className="text-xl font-bold text-[#7F5AF0] mb-4 font-poppins">
             Quick Links
           </h2>
-          <ul className="space-y-2 text-sm text-[#E0E0E0] font-outfit">
+          <ul
+            className="space-y-2 text-sm text-[#E0E0E0] font-outfit tracking-wide
+          drop-shadow-[0_1px_3px_rgba(0,0,0,0.7)]"
+          >
             <li>
               <a href="/" className="hover:text-[#D946EF] transition">
                 Home
@@ -53,13 +59,6 @@ const Footer = () => {
           </h2>
           <div className="flex gap-4 text-[#7F5AF0] text-lg">
             <a
-              href="https://github.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <FaGithub className="hover:scale-110 transition" />
-            </a>
-            <a
               href="https://linkedin.com"
               target="_blank"
               rel="noopener noreferrer"
@@ -81,7 +80,10 @@ const Footer = () => {
       </div>
 
       {/* Bottom Line */}
-      <div className="text-center text-sm text-[#E0E0E0] mt-10 border-t border-[#7F5AF0] pt-2 font-outfit">
+      <div
+        className="text-center text-sm text-[#E0E0E0] mt-10 border-t border-[#7F5AF0] pt-2 font-outfit tracking-wide
+          drop-shadow-[0_1px_3px_rgba(0,0,0,0.7)]"
+      >
         Copyright &copy; {new Date().getFullYear()}
       </div>
     </footer>
