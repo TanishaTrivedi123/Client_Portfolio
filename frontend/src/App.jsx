@@ -16,7 +16,7 @@ import VideosContainer from "./pages/VideosContainer";
 import ThumbnailContainer from "./pages/ThumbnailContainer";
 import AddCategoryForm from "./AdminAuthorized/AddCategoryForm";
 import Thumbnail from "./components/thumbnail/Thumbnail";
-import Loader from "./components/loader/Loader"; // Import your loader component
+import Loader from "./components/Loader/Loader"; // Import your loader component
 
 const App = () => {
   const [loading, setLoading] = useState(true);
