@@ -122,7 +122,7 @@ const ThreeDCard = () => {
           style={{ transform: "perspective(1000px) rotateY(-15deg)" }}
         >
           <img
-            src="photo2.png"
+            src="photo2.jpg"
             alt="Right Thumbnail"
             loading="lazy"
             className="w-full h-full object-cover rounded-2xl"
