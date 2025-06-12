@@ -16,6 +16,11 @@ const addThumbnailSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    type: {
+      type: String,
+      enum: ["thumbnail"],
+      required: true,
+    },
   },
   { timestamps: true }
 );

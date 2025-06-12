@@ -2,16 +2,26 @@ const express = require("express");
 const router = express.Router();
 const upload = require("../middleware/upload");
 const AddThumbnailModel = require("../models/AddThumbnail");
+const CategoryModel = require("../models/Category");
 
 router.post("/add-thumbnail", upload.single("image"), async (req, res) => {
   try {
     const image = req.file;
     const { category } = req.body; // yeh bhi le lo frontend se
 
-    if (!image) {
+    if (!image || !category) {
       return res
         .status(400)
-        .json({ error: "Image is required", success: false });
+        .json({ error: "Image and Category is required", success: false });
+    }
+
+    // ✅ Get category object from DB
+    const categoryObj = await CategoryModel.findOne({ name: category });
+
+    if (!categoryObj) {
+      return res
+        .status(404)
+        .json({ error: "Category not found", success: false });
     }
 
     const newThumbnail = new AddThumbnailModel({
@@ -19,9 +29,10 @@ router.post("/add-thumbnail", upload.single("image"), async (req, res) => {
         url: image.path || image.url,
         filename: image.filename,
         public_id: image.filename,
-        resource_type: "image", // 🔧 required field
+        resource_type: "image",
       },
-      category,
+      category: categoryObj.name,
+      type: categoryObj.type, // ✅ Now this works
     });
 
     await newThumbnail.save();

@@ -41,12 +41,14 @@ const addThumbnailRoute = require("./routes/AddThumbnailRoute");
 const addShortVideoRoute = require("./routes/AddShortVideoRoute");
 const mediaRoute = require("./routes/mediaRoute");
 const categoryRoute = require("./routes/categoryRoutes");
+const VisualAssetRoute = require("./routes/VisualAssetRoute");
 
 app.use("/", adminRoute);
 app.use("/", addThumbnailRoute);
 app.use("/", addShortVideoRoute);
 app.use("/", mediaRoute);
 app.use("/", categoryRoute);
+app.use("/assets", VisualAssetRoute);
 
 // Set the port to listen on
 const PORT = process.env.PORT || 5000;

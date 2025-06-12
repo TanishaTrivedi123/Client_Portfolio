@@ -4,10 +4,16 @@ const categorySchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
-    unique: true,
+  },
+  type: {
+    type: String,
+    enum: ["thumbnail", "video"],
+    required: true,
   },
 });
 
-const categoryModel = mongoose.model("Category", categorySchema);
+// ✅ Important fix: prevents model overwrite in dev
+const categoryModel =
+  mongoose.models.Category || mongoose.model("Category", categorySchema);
 
 module.exports = categoryModel;
