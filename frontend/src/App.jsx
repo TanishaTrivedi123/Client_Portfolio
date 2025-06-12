@@ -17,23 +17,25 @@ import ThumbnailContainer from "./pages/ThumbnailContainer";
 import AddCategoryForm from "./AdminAuthorized/AddCategoryForm";
 import Thumbnail from "./components/thumbnail/Thumbnail";
 import Loader from "./components/Loader/Loader"; // Import your loader component
+import Videos from "../src/components/videos/Videos";
+import ThreeDCardChange from "./AdminAuthorized/ThreeDCardChange";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
   const location = useLocation();
 
-  useEffect(() => {
-    // Disable right-click
-    const handleContextMenu = (event) => {
-      event.preventDefault();
-    };
+  // useEffect(() => {
+  //   // Disable right-click
+  //   const handleContextMenu = (event) => {
+  //     event.preventDefault();
+  //   };
 
-    document.addEventListener("contextmenu", handleContextMenu);
+  //   document.addEventListener("contextmenu", handleContextMenu);
 
-    return () => {
-      document.removeEventListener("contextmenu", handleContextMenu);
-    };
-  }, []);
+  //   return () => {
+  //     document.removeEventListener("contextmenu", handleContextMenu);
+  //   };
+  // }, []);
 
   useEffect(() => {
     // Show loader when route changes
@@ -70,6 +72,8 @@ const App = () => {
               <Route path="/thumbnails" element={<ThumbnailContainer />} />
               <Route path="/thumbnails/:categoryName" element={<Thumbnail />} />
               <Route path="/videos" element={<VideosContainer />} />
+              <Route path="/videos/:categoryName" element={<Videos />} />
+
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
 
@@ -91,6 +95,10 @@ const App = () => {
               <Route
                 path="/add-category"
                 element={<ProtectedRoute element={<AddCategoryForm />} />}
+              />
+              <Route
+                path="/home-page"
+                element={<ProtectedRoute element={<ThreeDCardChange />} />}
               />
             </Routes>
           </main>

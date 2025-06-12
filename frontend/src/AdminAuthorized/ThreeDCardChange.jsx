@@ -1,42 +1,17 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { FaImage } from "react-icons/fa";
+import { FaImage, FaVideo } from "react-icons/fa";
 import { API_URL } from "../utils/api";
 import { useNavigate } from "react-router-dom";
 
-const AddThumbnail = () => {
-  const [image, setImage] = useState(null);
+const ThreeDCardChange = () => {
+  const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
-  const [uploadedUrl, setUploadedUrl] = useState("");
-  const [images, setImages] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const [type, setType] = useState(""); // "image" or "video"
+  const [position, setPosition] = useState(""); // "left", "center", "right"
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
-
-  // Inside useEffect (fetchCategories remains same)
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const res = await axios.get(`${API_URL}/categories`);
-        console.log("Fetched all categories for thumbnail:", res.data); // Debug log
-        const filtered = res.data.filter(
-          (cat) => cat.type?.toLowerCase() === "thumbnail"
-        );
-        setCategories(filtered);
-      } catch (err) {
-        console.error("Error fetching thumbnail categories:", err);
-      }
-    };
-    fetchCategories();
-  }, []);
-
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    setImage(file);
-    setPreview(file ? URL.createObjectURL(file) : null);
-  };
 
   useEffect(() => {
     const admin = localStorage.getItem("isAdmin");
@@ -50,33 +25,36 @@ const AddThumbnail = () => {
     }
   }, [navigate]);
 
+  const handleFileChange = (e) => {
+    const selected = e.target.files[0];
+    if (selected) {
+      setFile(selected);
+      setPreview(URL.createObjectURL(selected));
+    } else {
+      setFile(null);
+      setPreview(null);
+    }
+  };
+
   const handleUpload = async (e) => {
     e.preventDefault();
-    if (!image || !selectedCategory) {
-      toast.warn("Please select image and category");
+    if (!file || !type || !position) {
+      toast.warn("Please select file, type and position");
       return;
     }
 
     const formData = new FormData();
-    formData.append("image", image);
-    formData.append("category", selectedCategory);
+    formData.append("file", file);
+    formData.append("type", type);
+    formData.append("position", position);
 
     try {
-      const res = await axios.post(`${API_URL}/add-thumbnail`, formData, {
+      const res = await axios.post(`${API_URL}/assets/upload`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
-      toast.success("Image uploaded successfully!");
-
-      const originalUrl = res.data.thumbnail.image.url;
-      const enhancedUrl = originalUrl.replace(
-        "/upload/",
-        "/upload/q_auto,f_auto/"
-      );
-      setUploadedUrl(enhancedUrl);
-
-      const timestamp = new Date().toISOString();
-      setImages((prev) => [{ url: enhancedUrl, timestamp }, ...prev]);
+      toast.success("Media uploaded successfully!");
+      console.log("Uploaded asset:", res.data);
     } catch (error) {
       console.error("Upload failed:", error);
       toast.error("Upload failed!");
@@ -86,57 +64,75 @@ const AddThumbnail = () => {
   return (
     <div className="min-h-screen bg-black flex items-center justify-center px-4">
       <div className="bg-[#0d0d0d] p-8 rounded-2xl shadow-lg w-full max-w-md border border-pink-400">
-        <h2 className="text-2xl font-semibold text-center text-pink-400  mb-6 font-poppins">
-          Upload Thumbnail
+        <h2 className="text-2xl font-semibold text-center text-pink-400 mb-6 font-poppins">
+          Upload Visual Asset
         </h2>
 
+        {/* Media Preview */}
         <div className="flex justify-center mb-6">
           <div
             className="cursor-pointer w-32 h-32 rounded-full overflow-hidden border-4 border-pink-500 flex items-center justify-center bg-[#1a1a1a] hover:scale-105 transition-transform duration-300"
             onClick={() => fileInputRef.current.click()}
           >
             {preview ? (
-              <img
-                src={preview}
-                alt="Thumbnail preview"
-                className="object-cover w-full h-full"
-              />
+              type === "video" ? (
+                <video src={preview} className="w-full h-full object-cover" />
+              ) : (
+                <img
+                  src={preview}
+                  alt="Preview"
+                  className="object-cover w-full h-full"
+                />
+              )
             ) : (
               <FaImage className="text-5xl text-gray-500" />
             )}
           </div>
         </div>
 
+        {/* File Input */}
         <input
           type="file"
-          accept="image/*"
-          onChange={handleImageChange}
+          accept="image/*,video/*"
+          onChange={handleFileChange}
           ref={fileInputRef}
           className="hidden"
         />
 
-        {/* Category Dropdown */}
+        {/* Type Dropdown */}
         <div className="mb-4">
           <select
-            value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
+            value={type}
+            onChange={(e) => setType(e.target.value)}
             className="w-full p-2 rounded-md bg-[#1a1a1a] text-white border border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-500"
           >
-            <option value="">-- Select Category --</option>
-            {categories.map((cat) => (
-              <option key={cat._id} value={cat.name}>
-                {cat.name}
-              </option>
-            ))}
+            <option value="">-- Select Type --</option>
+            <option value="image">Image</option>
+            <option value="video">Video</option>
           </select>
         </div>
 
+        {/* Position Dropdown */}
+        <div className="mb-6">
+          <select
+            value={position}
+            onChange={(e) => setPosition(e.target.value)}
+            className="w-full p-2 rounded-md bg-[#1a1a1a] text-white border border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-500"
+          >
+            <option value="">-- Select Position --</option>
+            <option value="left">Left</option>
+            <option value="center">Center</option>
+            <option value="right">Right</option>
+          </select>
+        </div>
+
+        {/* Submit Button */}
         <form onSubmit={handleUpload} className="flex flex-col gap-4">
           <button
             type="submit"
             className="bg-gradient-to-r from-[#FF61C7] via-[#7F5AF0] to-[#2e026d] hover:brightness-110 text-black font-bold py-2 rounded-md transition duration-300 font-outfit"
           >
-            Add
+            Upload
           </button>
         </form>
       </div>
@@ -144,4 +140,4 @@ const AddThumbnail = () => {
   );
 };
 
-export default AddThumbnail;
+export default ThreeDCardChange;

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { FaVideo } from "react-icons/fa"; // video icon
+import { FaVideo } from "react-icons/fa";
 import { API_URL } from "../utils/api";
 import { useNavigate } from "react-router-dom";
 
@@ -10,61 +10,69 @@ const AddVideo = () => {
   const [preview, setPreview] = useState(null);
   const [uploadedUrl, setUploadedUrl] = useState("");
   const [videos, setVideos] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [videoType, setVideoType] = useState(""); // 🆕 New state
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
-
-  const handleVideoChange = (e) => {
-    const file = e.target.files[0];
-    setVideo(file);
-
-    if (file) {
-      setPreview(URL.createObjectURL(file));
-    } else {
-      setPreview(null);
-    }
-  };
 
   useEffect(() => {
     const admin = localStorage.getItem("isAdmin");
     const expireTime = localStorage.getItem("expireTime");
     const currentTime = new Date().getTime();
-
     if (admin !== "true" || !expireTime || currentTime > parseInt(expireTime)) {
       localStorage.removeItem("isAdmin");
       localStorage.removeItem("expireTime");
-      navigate("/admin"); // 🔐 Redirect to login if expired
+      navigate("/admin");
     }
   }, [navigate]);
 
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await axios.get(`${API_URL}/categories/video`);
+        const filtered = res.data.filter(
+          (cat) => cat.type?.toLowerCase() === "video"
+        );
+        setCategories(filtered);
+      } catch (err) {
+        console.error("Error fetching video categories:", err);
+      }
+    };
+    fetchCategories();
+  }, []);
+
+  const handleVideoChange = (e) => {
+    const file = e.target.files[0];
+    setVideo(file);
+    setPreview(file ? URL.createObjectURL(file) : null);
+  };
+
   const handleUpload = async (e) => {
     e.preventDefault();
-    if (!video) {
-      toast.warn("Please select a video");
+    if (!video || !selectedCategory || !videoType) {
+      toast.warn("Please select video, category, and type");
       return;
     }
 
     const formData = new FormData();
-    formData.append("video", video); // 👈 must match the backend key
+    formData.append("video", video);
+    formData.append("category", selectedCategory);
+    formData.append("format", videoType === "reel" ? "portrait" : "landscape");
+    formData.append("type", "video");
 
     try {
-      const res = await axios.post(
-        `${API_URL}/add-video`, // ✅ your video endpoint
-        formData,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        }
-      );
+      const res = await axios.post(`${API_URL}/add-video`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
 
       toast.success("Video uploaded successfully!");
-
       const originalUrl = res.data.video.video.url;
       const enhancedUrl = originalUrl.replace(
         "/upload/",
         "/upload/q_auto,f_auto/"
       );
-
       setUploadedUrl(enhancedUrl);
-
       const timestamp = new Date().toISOString();
       setVideos((prev) => [{ url: enhancedUrl, timestamp }, ...prev]);
     } catch (error) {
@@ -113,7 +121,36 @@ const AddVideo = () => {
           className="hidden"
         />
 
-        {/* Upload Form */}
+        {/* Category Dropdown */}
+        <div className="mb-4">
+          <select
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+            className="w-full p-2 rounded-md bg-[#1a1a1a] text-white border border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-500"
+          >
+            <option value="">-- Select Category --</option>
+            {categories.map((cat) => (
+              <option key={cat._id} value={cat.name}>
+                {cat.name}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* 🆕 Video Type Dropdown */}
+        <div className="mb-6">
+          <select
+            value={videoType}
+            onChange={(e) => setVideoType(e.target.value)}
+            className="w-full p-2 rounded-md bg-[#1a1a1a] text-white border border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-500"
+          >
+            <option value="">-- Select Video Type --</option>
+            <option value="reel">Portrait Video (9:16)</option>
+            <option value="normal">Landscape Video (16:9)</option>
+          </select>
+        </div>
+
+        {/* Submit Button */}
         <form onSubmit={handleUpload} className="flex flex-col gap-4">
           <button
             type="submit"

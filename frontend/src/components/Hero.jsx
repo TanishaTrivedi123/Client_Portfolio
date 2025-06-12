@@ -55,7 +55,7 @@ const Hero = () => {
         </motion.div>
 
         {/* Updated Image Section for Better Mobile Spacing */}
-        <div className="w-full md:w-1/2 flex justify-center -mt-1 sm:-mt-20 md:-mt-24 mb-4 sm:mb-8 md:mb-0 relative z-10">
+        <div className="w-full md:w-1/2 flex justify-center -mt-1 sm:-mt-14 md:-mt-24 mb-4 sm:mb-8 md:mb-0 relative z-10">
           <img
             src="photo8.png"
             loading="lazy"

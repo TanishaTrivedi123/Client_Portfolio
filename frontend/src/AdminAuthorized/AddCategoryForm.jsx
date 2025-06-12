@@ -5,18 +5,22 @@ import { toast } from "react-toastify";
 
 const CategoryForm = ({ onAdd }) => {
   const [categoryName, setCategoryName] = useState("");
+  const [categoryType, setCategoryType] = useState("thumbnail");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!categoryName.trim())
+    if (!categoryName.trim()) {
       return toast.error("Please enter a category name");
+    }
 
     try {
       const res = await axios.post(`${API_URL}/add-category`, {
         name: categoryName.trim(),
+        type: categoryType, // ✅ correct value user ke select ke hisab se
       });
 
-      setCategoryName("");
+      setCategoryName(""); // ✅ only reset name
+      // setCategoryType("thumbnail"); ❌ remove this line
       toast.success("✅ Category added successfully!");
       if (onAdd) onAdd(res.data.category);
     } catch (err) {
@@ -28,10 +32,19 @@ const CategoryForm = ({ onAdd }) => {
     <div className="min-h-screen flex items-center justify-center bg-black px-4 py-10">
       <div className="w-full max-w-md bg-[#1a1a1a] rounded-xl shadow-xl p-8 border border-pink-400">
         <h2 className="text-2xl sm:text-3xl font-bold text-pink-400 mb-6 text-center font-poppins tracking-wide">
-          Add Thumbnail Category
+          Add Category
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
+          <select
+            value={categoryType}
+            onChange={(e) => setCategoryType(e.target.value)}
+            className="w-full px-4 py-2 rounded-md border border-pink-500 bg-black text-white focus:outline-none focus:ring-2 focus:ring-pink-500 transition duration-200"
+          >
+            <option value="thumbnail">Thumbnail</option>
+            <option value="video">Video</option>
+          </select>
+
           <input
             type="text"
             value={categoryName}

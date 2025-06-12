@@ -38,7 +38,7 @@ const EnterPage = () => {
             className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-[#FF61C7] via-[#7F5AF0] to-[#2e026d] hover:brightness-110 text-black font-semibold py-3 rounded-lg transition duration-300 shadow-md hover:shadow-lg font-outfit"
           >
             <FaPlus />
-            Add Short Video
+            Add Video
           </button>
 
           <button
@@ -46,7 +46,15 @@ const EnterPage = () => {
             className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-[#FF61C7] via-[#7F5AF0] to-[#2e026d] hover:brightness-110 text-black font-semibold py-3 rounded-lg transition duration-300 shadow-md hover:shadow-lg font-outfit"
           >
             <FaPlus />
-            Add Category for Thumbnail
+            Add Category for Thumbnail and Video
+          </button>
+
+          <button
+            onClick={() => navigate("/home-page")}
+            className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-[#FF61C7] via-[#7F5AF0] to-[#2e026d] hover:brightness-110 text-black font-semibold py-3 rounded-lg transition duration-300 shadow-md hover:shadow-lg font-outfit"
+          >
+            <FaPlus />
+            3D Card Change(Home Page)
           </button>
         </div>
       </div>

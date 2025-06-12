@@ -2,19 +2,25 @@
 import React, { useRef, useState, useEffect } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
+import { useParams } from "react-router-dom";
 import { FaPlay, FaPause } from "react-icons/fa";
 import { useInView } from "react-intersection-observer";
 import { API_URL } from "../../utils/api";
-import SkeletonVideos from "../videos/SkeletonVideos";
-import FloatingDots from "../../components/shared/FloatingDots";
+import SkeletonLoaderBox from "../shared/SkeletonLoaderBox";
+import FloatingDots from "../shared/FloatingDots";
 
 const CARD_WIDTH = 300;
 
-const VideoCard = ({ video, index, onPlay, isPlaying, isCentered }) => {
+const VideoCard = ({
+  video,
+  index,
+  onPlay,
+  isPlaying,
+  isCentered,
+  orientation = "portrait",
+}) => {
   const videoRef = useRef(null);
-  const { ref: inViewRef, inView } = useInView({
-    threshold: 0.6, // Trigger when 60% visible
-  });
+  const { ref: inViewRef, inView } = useInView({ threshold: 0.6 });
 
   const setRefs = (node) => {
     videoRef.current = node;
@@ -33,18 +39,16 @@ const VideoCard = ({ video, index, onPlay, isPlaying, isCentered }) => {
     }
   }, [isPlaying, inView]);
 
-  const handleContextMenu = (e) => e.preventDefault();
-
   return (
     <motion.div
-      className={`flex-shrink-0 w-[240px] sm:w-[280px] md:w-[300px] scroll-snap-align-center`}
+      className="flex-shrink-0 w-[240px] sm:w-[280px] md:w-[300px] scroll-snap-align-center"
       initial={{ opacity: 0, y: 50 }}
       animate={{
         opacity: 1,
         y: 0,
         scale: isCentered ? 1.05 : 0.96,
       }}
-      transition={{ delay: index * 0.1, duration: 0.5, ease: "easeOut" }}
+      transition={{ delay: index * 0.1, duration: 0.5 }}
       style={{
         scrollSnapAlign: "center",
         scrollSnapStop: "always",
@@ -52,28 +56,31 @@ const VideoCard = ({ video, index, onPlay, isPlaying, isCentered }) => {
     >
       <div
         onClick={onPlay}
-        className="relative cursor-pointer transition-all duration-500 rounded-[2.5rem] bg-[#0d0d0d] border-[6px] border-black 
-                     bg-gradient-to-br from-[#1e1b33] to-[#2b2645] shadow-[0_0_45px_#673AB780] "
+        className={`relative cursor-pointer transition-all duration-500 rounded-[2.5rem] border-[6px] border-black 
+    shadow-[0_0_45px_#673AB780] overflow-hidden bg-gradient-to-br from-[#1e1b33] to-[#2b2645] ${
+      orientation === "portrait"
+        ? "w-[240px] sm:w-[280px] md:w-[300px]"
+        : "w-[420px] sm:w-[480px] md:w-[560px]"
+    }`}
         style={{
-          aspectRatio: "9 / 16",
-          maxWidth: "300px",
+          aspectRatio: orientation === "portrait" ? "9 / 16" : "16 / 9",
+          maxWidth: orientation === "portrait" ? "300px" : "560px",
           transformStyle: "preserve-3d",
         }}
       >
         <div className="absolute inset-0 z-10 pointer-events-none mix-blend-overlay rounded-[2.5rem]" />
         <video
           ref={setRefs}
-          src={inView ? video.src : undefined} // only set src when in view
+          src={inView ? video.src : undefined}
           className="w-full h-full object-cover rounded-[2.5rem]"
-          preload={inView ? "metadata" : "none"} // preload only when visible
+          preload={inView ? "metadata" : "none"}
           playsInline
           muted
           controls={false}
           disablePictureInPicture
-          onContextMenu={handleContextMenu}
+          onContextMenu={(e) => e.preventDefault()}
         />
         <button
-          aria-label={isPlaying ? "Pause video" : "Play video"}
           onClick={(e) => {
             e.stopPropagation();
             onPlay();
@@ -88,6 +95,7 @@ const VideoCard = ({ video, index, onPlay, isPlaying, isCentered }) => {
 };
 
 const Videos = () => {
+  const { categoryName } = useParams();
   const scrollRef = useRef(null);
   const [atStart, setAtStart] = useState(true);
   const [atEnd, setAtEnd] = useState(false);
@@ -95,21 +103,10 @@ const Videos = () => {
   const [signedUrls, setSignedUrls] = useState([]);
   const [playingIndex, setPlayingIndex] = useState(null);
   const [centeredIndex, setCenteredIndex] = useState(null);
-  const [initialHintVisible, setInitialHintVisible] = useState(true);
   const [scrollPadding, setScrollPadding] = useState(0);
-  const [hasScrolled, setHasScrolled] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
-  // State for dots positions
-  const [dots, setDots] = useState(
-    Array.from({ length: 15 }).map(() => ({
-      top: Math.random() * 100,
-      left: Math.random() * 100,
-      size: Math.random() * 6 + 6,
-      directionX: (Math.random() - 0.5) * 0.1, // slow movement
-      directionY: (Math.random() - 0.5) * 0.1,
-    }))
-  );
-
+  // Adjust scroll padding based on screen size
   useEffect(() => {
     const updateScrollPadding = () => {
       const screenCenterOffset = window.innerWidth / 2 - CARD_WIDTH / 2;
@@ -118,10 +115,10 @@ const Videos = () => {
 
     updateScrollPadding();
     window.addEventListener("resize", updateScrollPadding);
-
     return () => window.removeEventListener("resize", updateScrollPadding);
   }, []);
 
+  // Scroll logic
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
@@ -147,7 +144,6 @@ const Videos = () => {
       });
 
       setCenteredIndex(closestIndex);
-      setInitialHintVisible(false);
     };
 
     el.addEventListener("scroll", handleScroll);
@@ -159,20 +155,29 @@ const Videos = () => {
     });
 
     return () => el.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [videos]);
 
+  // Fetch videos on mount or category change
   useEffect(() => {
     const fetchVideos = async () => {
       try {
-        const res = await axios.get(`${API_URL}/videos`);
+        setIsLoading(true);
+        setVideos([]);
+        setSignedUrls([]);
+        const res = await axios.get(
+          categoryName
+            ? `${API_URL}/videos?category=${categoryName}`
+            : `${API_URL}/videos`
+        );
         setVideos(res.data || []);
       } catch (err) {
         console.error("Failed to load videos:", err);
       }
     };
     fetchVideos();
-  }, []);
+  }, [categoryName]);
 
+  // Get signed URLs
   useEffect(() => {
     if (videos.length === 0) return;
 
@@ -190,6 +195,8 @@ const Videos = () => {
         setSignedUrls(urls);
       } catch (err) {
         console.error("Failed to fetch signed video URLs:", err);
+      } finally {
+        setIsLoading(false); // Done only after signed URLs
       }
     };
 
@@ -198,133 +205,58 @@ const Videos = () => {
 
   const displayVideos =
     signedUrls.length === videos.length
-      ? signedUrls.map((url) => ({ src: url }))
-      : videos.map((item) => ({ src: item.video?.url || "" }));
+      ? signedUrls.map((url, i) => ({
+          src: url,
+          orientation: videos[i]?.orientation || "portrait", // default to portrait
+        }))
+      : [];
 
   const handlePlay = (index) => {
     setPlayingIndex(playingIndex === index ? null : index);
   };
 
-  // Animate dots floating movement continuously
-  useEffect(() => {
-    let animationFrameId;
-
-    const animateDots = () => {
-      setDots((prevDots) =>
-        prevDots.map(({ top, left, size, directionX, directionY }) => {
-          let newTop = top + directionY;
-          let newLeft = left + directionX;
-
-          // Bounce dots inside 0-100% box
-          if (newTop > 100) {
-            newTop = 100;
-            directionY = -directionY;
-          } else if (newTop < 0) {
-            newTop = 0;
-            directionY = -directionY;
-          }
-
-          if (newLeft > 100) {
-            newLeft = 100;
-            directionX = -directionX;
-          } else if (newLeft < 0) {
-            newLeft = 0;
-            directionX = -directionX;
-          }
-
-          return {
-            top: newTop,
-            left: newLeft,
-            size,
-            directionX,
-            directionY,
-          };
-        })
-      );
-      animationFrameId = requestAnimationFrame(animateDots);
-    };
-
-    animationFrameId = requestAnimationFrame(animateDots);
-
-    return () => cancelAnimationFrame(animationFrameId);
-  }, []);
-
   return (
     <section className="relative w-full min-h-[720px] bg-gradient-to-r from-[#141414] via-[#232323] to-[#0d0d0d] pt-24 overflow-hidden">
       <div className="absolute inset-0 z-0 bg-black/90 backdrop-blur-sm" />
       <FloatingDots />
-      <motion.h2
-        initial={{ opacity: 0, y: -50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, delay: 0.1 }}
-        viewport={{ once: true }}
-        className="text-center 
-          text-3xl sm:text-4xl md:text-5xl lg:text-6xl 
-          font-extrabold 
-          tracking-wide 
-          text-[#7F5AF0]
-          drop-shadow-[0_0_15px_#7F5AF0]  
-          font-poppins
-          mb-6"
-      >
-        Videos
-      </motion.h2>
 
-      <motion.p
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.4, duration: 0.8 }}
-        viewport={{ once: true }}
-        className="text-center 
-          text-base sm:text-lg md:text-xl 
-          max-w-3xl 
-          mx-auto 
-          text-[#E0E0E0] 
-          font-outfit
-          leading-loose
-          px-2 sm:px-4
-          tracking-wide
-          drop-shadow-[0_1px_3px_rgba(0,0,0,0.7)]"
-      >
-        Crafted for impact — these short clips have boosted engagement, told
-        compelling stories, and delivered real results.
-      </motion.p>
+      <h2 className="text-3xl sm:text-4xl md:text-5xl text-[#03A9F4] text-center mb-14 sm:mb-16 px-4 leading-tight drop-shadow-[0_0_15px_#7F5AF0] font-extrabold">
+        {categoryName ? (
+          <>
+            Showing thumbnails for:{" "}
+            <span className="font-bold text-[#FF3CAC]">{categoryName}</span>
+          </>
+        ) : (
+          <>All Videos</>
+        )}
+      </h2>
 
-      {/* Floating Dots */}
-      <div className="absolute inset-0 w-full h-full z-0">
-        {dots.map(({ top, left, size }, index) => (
-          <div
-            key={index}
-            className="absolute bg-[#f6c610] rounded-full animate-pulse"
-            style={{
-              top: `${top}%`,
-              left: `${left}%`,
-              width: `${size}px`,
-              height: `${size}px`,
-              filter: "drop-shadow(0 0 2px #f6c610)",
-              pointerEvents: "none",
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Scrollable Container */}
       <div
         ref={scrollRef}
-        className="relative flex overflow-x-auto no-scrollbar gap-8 md:gap-12 z-10"
+        className={`relative z-10 gap-8 md:gap-12 ${
+          displayVideos.length === 1
+            ? "flex justify-center items-center"
+            : "flex overflow-x-auto no-scrollbar"
+        }`}
         style={{
           minHeight: "720px",
-          scrollSnapType: "x mandatory",
+          scrollSnapType: displayVideos.length === 1 ? "none" : "x mandatory",
           WebkitOverflowScrolling: "touch",
           overflowY: "hidden",
-          paddingLeft: `${scrollPadding}px`,
-          paddingRight: `${scrollPadding}px`,
+          paddingLeft:
+            displayVideos.length === 1 ? "0px" : `${scrollPadding}px`,
+          paddingRight:
+            displayVideos.length === 1 ? "0px" : `${scrollPadding}px`,
           maxWidth: "100vw",
           alignItems: "center",
         }}
       >
-        {displayVideos.length === 0 ? (
-          <SkeletonVideos />
+        {isLoading || displayVideos.length === 0 ? (
+          <SkeletonLoaderBox
+            count={6}
+            className="min-w-[160px] sm:min-w-[200px] md:min-w-[260px] 
+               h-[220px] sm:h-[280px] md:h-[340px]"
+          />
         ) : (
           displayVideos.map((video, index) => (
             <VideoCard
@@ -334,32 +266,11 @@ const Videos = () => {
               onPlay={() => handlePlay(index)}
               isPlaying={playingIndex === index}
               isCentered={centeredIndex === index}
+              orientation={video.orientation}
             />
           ))
         )}
       </div>
-
-      {/* Scroll Left Indicator (appears only at END) */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: atEnd ? 1 : 0 }}
-        transition={{ duration: 0.5 }}
-        className="absolute right-0 top-1/2 -translate-y-1/2 px-4 py-2 bg-[#0d0d0de6] backdrop-blur-sm rounded-l-xl text-[#f6c610] flex items-center gap-2 z-20 pointer-events-none select-none"
-      >
-        <span className="font-medium md:inline">Scroll Left</span>
-        <span className="text-xl">&#8592;</span>
-      </motion.div>
-
-      {/* Scroll Right Indicator (appears only at START) */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: atStart ? 1 : 0 }}
-        transition={{ duration: 0.5 }}
-        className="absolute left-0 top-1/2 -translate-y-1/2 px-4 py-2 bg-[#0d0d0de6] backdrop-blur-sm rounded-r-xl text-[#f6c610] flex items-center gap-2 z-20 pointer-events-none select-none"
-      >
-        <span className="text-xl">&#8594;</span>
-        <span className="font-medium md:inline">Scroll Right</span>
-      </motion.div>
     </section>
   );
 };

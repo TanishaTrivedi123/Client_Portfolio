@@ -2,14 +2,19 @@ import React, { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { NavLink } from "react-router-dom";
 import { FaPlay, FaPause } from "react-icons/fa";
+import axios from "axios";
 import FloatingDots from "../components/shared/FloatingDots";
+import SkeletonLoaderBox from "../components/shared/SkeletonLoaderBox";
+import { API_URL } from "../utils/api";
 
 const ThreeDCard = () => {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
-  const rotatingRef = useRef(null);
+
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [assets, setAssets] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const setVolume = (video) => {
     if (video) {
@@ -30,6 +35,20 @@ const ThreeDCard = () => {
   };
 
   useEffect(() => {
+    const fetchAssets = async () => {
+      try {
+        const res = await axios.get(`${API_URL}/assets`);
+        setAssets(res.data);
+      } catch (err) {
+        console.error("Failed to fetch visual assets:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchAssets();
+  }, []);
+
+  useEffect(() => {
     let angle = 0;
     const interval = setInterval(() => {
       if (rotatingRef.current) {
@@ -40,6 +59,11 @@ const ThreeDCard = () => {
     return () => clearInterval(interval);
   }, []);
 
+  // Filter by position
+  const left = assets.find((a) => a.position === "left");
+  const center = assets.find((a) => a.position === "center");
+  const right = assets.find((a) => a.position === "right");
+
   return (
     <motion.section
       ref={sectionRef}
@@ -48,16 +72,12 @@ const ThreeDCard = () => {
       transition={{ duration: 1.2, ease: "easeOut" }}
       className="w-full px-4 pt-16 pb-24 relative flex flex-col items-center justify-center bg-[#0A0F1C] overflow-hidden"
     >
-      {/* Glowing Background Circle */}
       <div className="absolute inset-0 z-0">
         <div className="absolute -top-32 left-1/2 w-[1000px] h-[1000px] bg-black rounded-full blur-[200px] -translate-x-1/2" />
       </div>
-
-      {/* Floating Dots Overlay */}
       <div className="absolute inset-0 z-0 bg-black/90 backdrop-blur-sm" />
       <FloatingDots />
 
-      {/* Heading */}
       <div className="text-center mb-16 z-10">
         <h2 className="text-4xl md:text-5xl font-extrabold font-poppins mb-4 bg-gradient-to-r from-[#7b5af0] via-[#8f3eff] to-[#3ad4f0] bg-clip-text text-transparent">
           Explore Our Amazing Visuals
@@ -68,66 +88,78 @@ const ThreeDCard = () => {
         </p>
       </div>
 
-      {/* Cards */}
+      {/* Main Cards */}
       <div className="w-full max-w-7xl flex flex-col md:flex-row items-center justify-between gap-10 md:gap-6 z-10">
-        {/* Left Image */}
-        <div
-          className="group relative w-full max-w-sm aspect-video rounded-2xl overflow-hidden border-4 border-[#1a1a2e] bg-[#1a1a2e] shadow-[0_20px_40px_rgba(123,90,240,0.4)]"
-          style={{ transform: "perspective(1000px) rotateY(15deg)" }}
-        >
-          <img
-            src="photo1.jpg"
-            loading="lazy"
-            alt="Left Thumbnail"
-            className="w-full h-full object-cover rounded-2xl"
+        {loading ? (
+          <SkeletonLoaderBox
+            count={3}
+            className="w-full max-w-sm aspect-video rounded-2xl"
           />
-        </div>
-
-        {/* Center Video */}
-        <div className="group relative w-full max-w-xs aspect-[9/16] rounded-[2.5rem] overflow-hidden border-4 border-[#1a1a2e] bg-[#1a1a2e] shadow-[inset_0_0_20px_rgba(123,90,240,0.2),_0_15px_35px_rgba(58,212,240,0.6)] transition-transform duration-500 hover:scale-[1.03]">
-          <video
-            ref={videoRef}
-            src="video2.mp4"
-            loading="lazy"
-            loop
-            playsInline
-            className="w-full h-full object-cover rounded-[2.5rem] relative z-10"
-            controlsList="nodownload nofullscreen noremoteplayback"
-            disablePictureInPicture
-          />
-
-          {/* Play/Pause Button */}
-          <div className="absolute bottom-4 left-4 z-40">
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                if (videoRef.current) {
-                  setVolume(videoRef.current);
-                  togglePlayPause(videoRef.current, setIsPlaying);
-                }
-              }}
-              className="text-3xl text-black bg-[#f6c610cc] hover:bg-[#f6c610] p-3 rounded-full shadow-xl transition "
+        ) : (
+          <>
+            {/* Left Image */}
+            <div
+              className="group relative w-full max-w-sm aspect-video rounded-2xl overflow-hidden border-4 border-[#1a1a2e] bg-[#1a1a2e] shadow-[0_20px_40px_rgba(123,90,240,0.4)]"
+              style={{ transform: "perspective(1000px) rotateY(15deg)" }}
             >
-              {isPlaying ? <FaPause /> : <FaPlay />}
-            </button>
-          </div>
+              {left && left.type === "image" && (
+                <img
+                  src={left.mediaUrl}
+                  loading="lazy"
+                  alt="Left Thumbnail"
+                  className="w-full h-full object-cover rounded-2xl"
+                />
+              )}
+            </div>
 
-          {/* Glass Shine Effect */}
-          <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/10 z-10 pointer-events-none rounded-[2.5rem]" />
-        </div>
+            {/* Center Video */}
+            <div className="group relative w-full max-w-xs aspect-[9/16] rounded-[2.5rem] overflow-hidden border-4 border-[#1a1a2e] bg-[#1a1a2e] shadow-[inset_0_0_20px_rgba(123,90,240,0.2),_0_15px_35px_rgba(58,212,240,0.6)] transition-transform duration-500 hover:scale-[1.03]">
+              {center && center.type === "video" && (
+                <>
+                  <video
+                    ref={videoRef}
+                    src={center.mediaUrl}
+                    loop
+                    playsInline
+                    className="w-full h-full object-cover rounded-[2.5rem] relative z-10"
+                    controlsList="nodownload nofullscreen noremoteplayback"
+                    disablePictureInPicture
+                  />
+                  <div className="absolute bottom-4 left-4 z-40">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (videoRef.current) {
+                          setVolume(videoRef.current);
+                          togglePlayPause(videoRef.current, setIsPlaying);
+                        }
+                      }}
+                      className="text-3xl text-black bg-[#f6c610cc] hover:bg-[#f6c610] p-3 rounded-full shadow-xl transition"
+                    >
+                      {isPlaying ? <FaPause /> : <FaPlay />}
+                    </button>
+                  </div>
+                </>
+              )}
+              <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/10 z-10 pointer-events-none rounded-[2.5rem]" />
+            </div>
 
-        {/* Right Image */}
-        <div
-          className="group relative w-full max-w-sm aspect-video rounded-2xl overflow-hidden border-4 border-[#1a1a2e] bg-[#1a1a2e] shadow-[0_20px_40px_rgba(123,90,240,0.4)]"
-          style={{ transform: "perspective(1000px) rotateY(-15deg)" }}
-        >
-          <img
-            src="photo2.jpg"
-            alt="Right Thumbnail"
-            loading="lazy"
-            className="w-full h-full object-cover rounded-2xl"
-          />
-        </div>
+            {/* Right Image */}
+            <div
+              className="group relative w-full max-w-sm aspect-video rounded-2xl overflow-hidden border-4 border-[#1a1a2e] bg-[#1a1a2e] shadow-[0_20px_40px_rgba(123,90,240,0.4)]"
+              style={{ transform: "perspective(1000px) rotateY(-15deg)" }}
+            >
+              {right && right.type === "image" && (
+                <img
+                  src={right.mediaUrl}
+                  loading="lazy"
+                  alt="Right Thumbnail"
+                  className="w-full h-full object-cover rounded-2xl"
+                />
+              )}
+            </div>
+          </>
+        )}
       </div>
 
       {/* Button */}
