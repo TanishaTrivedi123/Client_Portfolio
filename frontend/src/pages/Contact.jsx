@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import gsap from "gsap";
 import FloatingDots from "../components/shared/FloatingDots";
+import { FiPhone, FiMail, FiLinkedin } from "react-icons/fi";
 
 const Contact = () => {
   useEffect(() => {
@@ -54,10 +55,7 @@ const Contact = () => {
           Contact Me
         </h2>
 
-        <p
-          className="gsap-about text-lg text-[#E0E0E0] leading-relaxed mb-10 font-outfit tracking-wide
-          drop-shadow-[0_1px_3px_rgba(0,0,0,0.7)]"
-        >
+        <p className="gsap-about text-lg text-[#E0E0E0] leading-relaxed mb-10 font-outfit tracking-wide drop-shadow-[0_1px_3px_rgba(0,0,0,0.7)]">
           If you're looking for
           <span className="text-[#D946EF] font-semibold">
             {" "}
@@ -72,9 +70,9 @@ const Contact = () => {
           <span className="text-[#D946EF] font-semibold">
             {" "}
             creative visual content
-          </span>
-          — you're in the right place. Whether it's for
-          <span className="text-[#D946EF] font-semibold"> YouTube</span>,
+          </span>{" "}
+          — you're in the right place. Whether it's for{" "}
+          <span className="text-[#D946EF] font-semibold">YouTube</span>,
           <span className="text-[#D946EF] font-semibold"> Instagram</span>, or
           professional branding, I specialize in crafting
           <span className="text-[#D946EF] font-semibold">
@@ -92,28 +90,21 @@ const Contact = () => {
 
         <div className="gsap-about text-left bg-[#1c1c1c] backdrop-blur-sm border border-[#7F5AF0]/30 rounded-xl p-8 shadow-lg shadow-[#7F5AF0]/10 hover:shadow-[#7F5AF0]/30 space-y-6 font-poppins">
           <div className="flex items-center space-x-4">
-            <span className="text-[#7F5AF0] text-xl">📞</span>
+            <FiPhone className="text-[#7F5AF0] text-xl" />
             <span className="text-[#E0E0E0] text-lg font-medium">
               +91 72239 78547
             </span>
           </div>
 
           <div className="flex items-center space-x-4">
-            <span className="text-[#7F5AF0] text-xl">✉️</span>
+            <FiMail className="text-[#7F5AF0] text-xl" />
             <span className="text-[#E0E0E0] text-lg font-medium">
               antrivofficial@gmail.com
             </span>
           </div>
 
           <div className="flex items-center space-x-4">
-            <span className="text-[#7F5AF0] text-xl">📍</span>
-            <span className="text-[#E0E0E0] text-lg font-medium">
-              Dewas, Madhya Pradesh
-            </span>
-          </div>
-
-          <div className="flex items-center space-x-4">
-            <span className="text-[#7F5AF0] text-xl">🔗</span>
+            <FiLinkedin className="text-[#7F5AF0] text-xl" />
             <a
               href="https://www.linkedin.com/in/yourprofile"
               target="_blank"
