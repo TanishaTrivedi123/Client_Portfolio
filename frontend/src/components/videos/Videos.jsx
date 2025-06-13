@@ -162,12 +162,12 @@ const Videos = () => {
   };
 
   return (
-    <section className="relative w-full min-h-[620px] bg-black pt-40 sm:pt-36 md:pt-32 lg:pt-40 pb-12 sm:pb-16 md:pb-20 lg:pb-24 overflow-hidden mb-0">
+    <section className="relative w-full min-h-[620px] bg-black pt-32 sm:pt-36 md:pt-32 pb-12 sm:pb-16 md:pb-20 lg:pb-24 overflow-hidden mb-0">
       <div className="absolute inset-0 z-0 bg-black/90 backdrop-blur-sm" />
       <FloatingDots />
 
       {/* Updated heading size for better visibility */}
-      <h2 className="text-4xl sm:text-5xl md:text-5xl text-[#03A9F4] text-center mb-6 sm:mb-8 px-4 leading-tight drop-shadow-[0_0_15px_#7F5AF0] font-extrabold relative z-10">
+      <h2 className="text-3xl sm:text-4xl md:text-5xl text-[#03A9F4] text-center mb-14 sm:mb-16 px-4 leading-tight drop-shadow-[0_0_15px_#7F5AF0] font-extrabold relative z-10">
         {categoryName ? (
           <>
             Showing thumbnails for:{" "}
@@ -177,6 +177,28 @@ const Videos = () => {
           <>All Videos</>
         )}
       </h2>
+
+      <div className="z-10 relative mb-0 md:mb-11 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
+        <motion.p
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 0.8 }}
+          viewport={{ once: true }}
+          className="text-center 
+                text-base sm:text-lg md:text-xl 
+                max-w-3xl 
+                mx-auto 
+                text-[#E0E0E0] 
+                font-outfit
+                leading-loose
+                px-2 sm:px-4
+                tracking-wide
+                drop-shadow-[0_1px_3px_rgba(0,0,0,0.7)]"
+        >
+          Crafted for impact — these short clips have boosted engagement, told
+          compelling stories, and delivered real results.
+        </motion.p>
+      </div>
 
       <div
         ref={scrollRef}
@@ -190,10 +212,7 @@ const Videos = () => {
           scrollSnapType: displayVideos.length === 1 ? "none" : "x mandatory",
           WebkitOverflowScrolling: "touch",
           overflowY: "hidden",
-          paddingLeft:
-            displayVideos.length === 1 ? "0px" : `${scrollPadding}px`,
-          paddingRight:
-            displayVideos.length === 1 ? "0px" : `${scrollPadding}px`,
+          // 🧹 Removed paddingLeft and paddingRight logic:
           maxWidth: "100vw",
           alignItems: "center",
         }}

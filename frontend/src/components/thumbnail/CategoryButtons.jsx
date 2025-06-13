@@ -32,7 +32,7 @@ const CategoryButtons = () => {
   const shouldShowLoader = !hasFetched || categories.length === 0;
 
   return (
-    <div className="pt-24 mb-6 sm:mb-8 lg:mb-12 z-10 relative px-4 sm:px-6">
+    <div className="pt-6 mb-6 sm:mb-36 lg:mb-12 z-10 relative px-4 sm:px-6">
       {shouldShowLoader ? (
         <SkeletonLoaderBox
           count={10}
@@ -47,7 +47,7 @@ const CategoryButtons = () => {
             grid-flow-col lg:grid-flow-row
             auto-cols-[minmax(120px,1fr)] sm:auto-cols-[minmax(160px,1fr)]
             snap-x snap-mandatory lg:snap-none
-            scrollbar-hide pb-4 px-2
+            scrollbar-hide pb-11 px-2
             py-2 sm:py-3 lg:py-4
           `}
         >

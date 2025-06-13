@@ -49,7 +49,7 @@ const Thumbnail = () => {
   const shouldShowLoader = !hasFetched || images.length === 0;
 
   return (
-    <section className="w-full bg-black pt-40 sm:pt-36 md:pt-32 pb-12 sm:pb-16 md:pb-20 overflow-hidden relative">
+    <section className="w-full bg-black pt-32 sm:pt-36 md:pt-32 pb-12 sm:pb-16 md:pb-20 overflow-hidden relative">
       <FloatingDots />
 
       <h2 className="text-3xl sm:text-4xl md:text-5xl text-[#03A9F4] text-center mb-14 sm:mb-16 px-4 leading-tight drop-shadow-[0_0_15px_#7F5AF0] font-extrabold ">
@@ -62,6 +62,31 @@ const Thumbnail = () => {
           <>All Thumbnails</>
         )}
       </h2>
+
+      <div className="z-10 relative mb-9 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.1, ease: "easeOut" }}
+          viewport={{ once: true }}
+          className="
+                text-center 
+                text-base sm:text-lg md:text-xl 
+                max-w-3xl 
+                mx-auto 
+                text-[#E0E0E0] 
+                font-outfit
+                leading-loose
+                px-2 sm:px-4
+                tracking-wide
+                drop-shadow-[0_1px_3px_rgba(0,0,0,0.7)]
+              "
+        >
+          A glimpse into the creative journey — each thumbnail here is designed
+          with precision and purpose, curated for real clients to maximize
+          clicks, boost visibility, and leave a lasting impression.
+        </motion.p>
+      </div>
 
       {shouldShowLoader ? (
         <SkeletonLoaderBox
