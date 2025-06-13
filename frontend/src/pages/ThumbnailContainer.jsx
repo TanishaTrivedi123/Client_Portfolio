@@ -8,9 +8,9 @@ const ThumbnailContainer = () => {
   return (
     <>
       <FloatingDots />
+      <Thumbnail />
       <HeadingDescription />
       <CategoryButtons />
-      <Thumbnail />
     </>
   );
 };

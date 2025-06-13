@@ -9,9 +9,9 @@ const VideosContainer = () => {
   return (
     <>
       <FloatingDots />
+      <Videos />
       <VideosHeadingDescription />
       <VideoCategoryButtons />
-      <Videos />
     </>
   );
 };

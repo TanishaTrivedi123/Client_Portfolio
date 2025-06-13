@@ -24,18 +24,18 @@ const App = () => {
   const [loading, setLoading] = useState(true);
   const location = useLocation();
 
-  // useEffect(() => {
-  //   // Disable right-click
-  //   const handleContextMenu = (event) => {
-  //     event.preventDefault();
-  //   };
+  useEffect(() => {
+    // Disable right-click
+    const handleContextMenu = (event) => {
+      event.preventDefault();
+    };
 
-  //   document.addEventListener("contextmenu", handleContextMenu);
+    document.addEventListener("contextmenu", handleContextMenu);
 
-  //   return () => {
-  //     document.removeEventListener("contextmenu", handleContextMenu);
-  //   };
-  // }, []);
+    return () => {
+      document.removeEventListener("contextmenu", handleContextMenu);
+    };
+  }, []);
 
   useEffect(() => {
     // Show loader when route changes
@@ -59,49 +59,49 @@ const App = () => {
   }, []);
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <>
       <ScrollToTop />
       {loading ? (
         <Loader /> // Show only loader when loading
       ) : (
         <>
           <Navbar />
-          <main className="flex-grow">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/thumbnails" element={<ThumbnailContainer />} />
-              <Route path="/thumbnails/:categoryName" element={<Thumbnail />} />
-              <Route path="/videos" element={<VideosContainer />} />
-              <Route path="/videos/:categoryName" element={<Videos />} />
 
-              <Route path="/about" element={<About />} />
-              <Route path="/contact" element={<Contact />} />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/thumbnails" element={<ThumbnailContainer />} />
+            <Route path="/thumbnails/:categoryName" element={<Thumbnail />} />
+            <Route path="/videos" element={<VideosContainer />} />
+            <Route path="/videos/:categoryName" element={<Videos />} />
 
-              {/* Admin login route */}
-              <Route path="/admin" element={<Admin />} />
-              {/* Protected admin panel */}
-              <Route
-                path="/EnterPage"
-                element={<ProtectedRoute element={<EnterPage />} />}
-              />
-              <Route
-                path="/add-thumbnail"
-                element={<ProtectedRoute element={<AddThumbnail />} />}
-              />
-              <Route
-                path="/add-short-videos"
-                element={<ProtectedRoute element={<AddShortVideos />} />}
-              />
-              <Route
-                path="/add-category"
-                element={<ProtectedRoute element={<AddCategoryForm />} />}
-              />
-              <Route
-                path="/home-page"
-                element={<ProtectedRoute element={<ThreeDCardChange />} />}
-              />
-            </Routes>
-          </main>
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+
+            {/* Admin login route */}
+            <Route path="/admin" element={<Admin />} />
+            {/* Protected admin panel */}
+            <Route
+              path="/EnterPage"
+              element={<ProtectedRoute element={<EnterPage />} />}
+            />
+            <Route
+              path="/add-thumbnail"
+              element={<ProtectedRoute element={<AddThumbnail />} />}
+            />
+            <Route
+              path="/add-short-videos"
+              element={<ProtectedRoute element={<AddShortVideos />} />}
+            />
+            <Route
+              path="/add-category"
+              element={<ProtectedRoute element={<AddCategoryForm />} />}
+            />
+            <Route
+              path="/home-page"
+              element={<ProtectedRoute element={<ThreeDCardChange />} />}
+            />
+          </Routes>
+
           <Footer />
           <ToastContainer
             position="top-right"
@@ -114,7 +114,7 @@ const App = () => {
           />
         </>
       )}
-    </div>
+    </>
   );
 };
 

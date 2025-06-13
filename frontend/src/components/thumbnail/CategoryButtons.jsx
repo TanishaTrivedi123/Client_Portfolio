@@ -35,7 +35,7 @@ const CategoryButtons = () => {
     <div className="pt-24 mb-6 sm:mb-8 lg:mb-12 z-10 relative px-4 sm:px-6">
       {shouldShowLoader ? (
         <SkeletonLoaderBox
-          count={6}
+          count={10}
           className="min-w-[120px] h-[36px] sm:h-[48px] lg:h-[64px]"
         />
       ) : (

@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 const VideosHeadingDescription = () => {
   return (
     <>
-      <div className="z-10 relative pt-24 sm:pt-28 md:pt-24 lg:pt-28 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
+      <div className="z-10 relative pt-10 sm:pt-10 md:pt-10 lg:pt-10 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: -50 }}
           whileInView={{ opacity: 1, y: 0 }}

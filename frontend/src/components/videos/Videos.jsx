@@ -16,7 +16,6 @@ const VideoCard = ({
   index,
   onPlay,
   isPlaying,
-  isCentered,
   orientation = "portrait",
 }) => {
   const videoRef = useRef(null);
@@ -29,7 +28,6 @@ const VideoCard = ({
 
   useEffect(() => {
     if (!videoRef.current) return;
-
     if (isPlaying && inView) {
       videoRef.current.muted = false;
       videoRef.current.play().catch(() => {});
@@ -43,11 +41,7 @@ const VideoCard = ({
     <motion.div
       className="flex-shrink-0 w-[240px] sm:w-[280px] md:w-[300px] scroll-snap-align-center"
       initial={{ opacity: 0, y: 50 }}
-      animate={{
-        opacity: 1,
-        y: 0,
-        scale: isCentered ? 1.05 : 0.96,
-      }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.1, duration: 0.5 }}
       style={{
         scrollSnapAlign: "center",
@@ -57,11 +51,11 @@ const VideoCard = ({
       <div
         onClick={onPlay}
         className={`relative cursor-pointer transition-all duration-500 rounded-[2.5rem] border-[6px] border-black 
-    shadow-[0_0_45px_#673AB780] overflow-hidden bg-gradient-to-br from-[#1e1b33] to-[#2b2645] ${
-      orientation === "portrait"
-        ? "w-[240px] sm:w-[280px] md:w-[300px]"
-        : "w-[420px] sm:w-[480px] md:w-[560px]"
-    }`}
+        shadow-[0_0_45px_#673AB780] overflow-hidden bg-gradient-to-br from-[#1e1b33] to-[#2b2645] ${
+          orientation === "portrait"
+            ? "w-[240px] sm:w-[280px] md:w-[300px]"
+            : "w-[360px] sm:w-[420px] md:w-[560px]"
+        }`}
         style={{
           aspectRatio: orientation === "portrait" ? "9 / 16" : "16 / 9",
           maxWidth: orientation === "portrait" ? "300px" : "560px",
@@ -97,67 +91,22 @@ const VideoCard = ({
 const Videos = () => {
   const { categoryName } = useParams();
   const scrollRef = useRef(null);
-  const [atStart, setAtStart] = useState(true);
-  const [atEnd, setAtEnd] = useState(false);
   const [videos, setVideos] = useState([]);
   const [signedUrls, setSignedUrls] = useState([]);
   const [playingIndex, setPlayingIndex] = useState(null);
-  const [centeredIndex, setCenteredIndex] = useState(null);
   const [scrollPadding, setScrollPadding] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Adjust scroll padding based on screen size
   useEffect(() => {
     const updateScrollPadding = () => {
       const screenCenterOffset = window.innerWidth / 2 - CARD_WIDTH / 2;
       setScrollPadding(screenCenterOffset > 0 ? screenCenterOffset : 0);
     };
-
     updateScrollPadding();
     window.addEventListener("resize", updateScrollPadding);
     return () => window.removeEventListener("resize", updateScrollPadding);
   }, []);
 
-  // Scroll logic
-  useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-
-    const handleScroll = () => {
-      const { scrollLeft, scrollWidth, clientWidth } = el;
-      setAtStart(scrollLeft <= 5);
-      setAtEnd(scrollLeft + clientWidth >= scrollWidth - 5);
-
-      const center = scrollLeft + clientWidth / 2;
-      let closestIndex = 0;
-      let minDistance = Infinity;
-
-      Array.from(el.children).forEach((child, index) => {
-        const box = child.getBoundingClientRect();
-        const distance = Math.abs(
-          box.left + box.width / 2 - window.innerWidth / 2
-        );
-        if (distance < minDistance) {
-          minDistance = distance;
-          closestIndex = index;
-        }
-      });
-
-      setCenteredIndex(closestIndex);
-    };
-
-    el.addEventListener("scroll", handleScroll);
-
-    requestAnimationFrame(() => {
-      const screenCenterOffset = window.innerWidth / 2 - CARD_WIDTH / 2;
-      el.scrollLeft = 0 - screenCenterOffset;
-      handleScroll();
-    });
-
-    return () => el.removeEventListener("scroll", handleScroll);
-  }, [videos]);
-
-  // Fetch videos on mount or category change
   useEffect(() => {
     const fetchVideos = async () => {
       try {
@@ -177,10 +126,8 @@ const Videos = () => {
     fetchVideos();
   }, [categoryName]);
 
-  // Get signed URLs
   useEffect(() => {
     if (videos.length === 0) return;
-
     const fetchSignedUrls = async () => {
       try {
         const urls = await Promise.all(
@@ -196,10 +143,9 @@ const Videos = () => {
       } catch (err) {
         console.error("Failed to fetch signed video URLs:", err);
       } finally {
-        setIsLoading(false); // Done only after signed URLs
+        setIsLoading(false);
       }
     };
-
     fetchSignedUrls();
   }, [videos]);
 
@@ -207,7 +153,7 @@ const Videos = () => {
     signedUrls.length === videos.length
       ? signedUrls.map((url, i) => ({
           src: url,
-          orientation: videos[i]?.orientation || "portrait", // default to portrait
+          orientation: videos[i]?.orientation || "portrait",
         }))
       : [];
 
@@ -216,11 +162,12 @@ const Videos = () => {
   };
 
   return (
-    <section className="relative w-full min-h-[720px] bg-gradient-to-r from-[#141414] via-[#232323] to-[#0d0d0d] pt-24 overflow-hidden">
+    <section className="relative w-full min-h-[720px] bg-black pt-40 sm:pt-36 md:pt-32 pb-12 sm:pb-16 md:pb-20 overflow-hidden mb-0">
       <div className="absolute inset-0 z-0 bg-black/90 backdrop-blur-sm" />
       <FloatingDots />
 
-      <h2 className="text-3xl sm:text-4xl md:text-5xl text-[#03A9F4] text-center mb-14 sm:mb-16 px-4 leading-tight drop-shadow-[0_0_15px_#7F5AF0] font-extrabold">
+      {/* Heading always visible */}
+      <h2 className="text-3xl sm:text-4xl md:text-5xl text-[#03A9F4] text-center mb-8 px-4 leading-tight drop-shadow-[0_0_15px_#7F5AF0] font-extrabold relative z-10">
         {categoryName ? (
           <>
             Showing thumbnails for:{" "}
@@ -251,12 +198,17 @@ const Videos = () => {
           alignItems: "center",
         }}
       >
-        {isLoading || displayVideos.length === 0 ? (
+        {/* Loader placed below heading, inside section */}
+        {isLoading ? (
           <SkeletonLoaderBox
             count={6}
             className="min-w-[160px] sm:min-w-[200px] md:min-w-[260px] 
                h-[220px] sm:h-[280px] md:h-[340px]"
           />
+        ) : displayVideos.length === 0 ? (
+          <p className="text-white text-center text-xl w-full">
+            No videos found.
+          </p>
         ) : (
           displayVideos.map((video, index) => (
             <VideoCard
@@ -265,7 +217,6 @@ const Videos = () => {
               index={index}
               onPlay={() => handlePlay(index)}
               isPlaying={playingIndex === index}
-              isCentered={centeredIndex === index}
               orientation={video.orientation}
             />
           ))
