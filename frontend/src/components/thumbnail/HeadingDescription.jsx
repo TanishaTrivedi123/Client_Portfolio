@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 const HeadingDescription = () => {
   return (
-    <div className="z-10 relative pt-24 sm:pt-28 md:pt-24 lg:pt-28 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
+    <div className="z-10 relative pt-12 sm:pt-16 md:pt-20 lg:pt-28 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
       <motion.h2
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}

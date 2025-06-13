@@ -39,7 +39,7 @@ const VideoCard = ({
 
   return (
     <motion.div
-      className="flex-shrink-0 w-[240px] sm:w-[280px] md:w-[300px] scroll-snap-align-center"
+      className="flex-shrink-0 w-[200px] sm:w-[240px] md:w-[300px] scroll-snap-align-center"
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.1, duration: 0.5 }}
@@ -53,8 +53,8 @@ const VideoCard = ({
         className={`relative cursor-pointer transition-all duration-500 rounded-[2.5rem] border-[6px] border-black 
         shadow-[0_0_45px_#673AB780] overflow-hidden bg-gradient-to-br from-[#1e1b33] to-[#2b2645] ${
           orientation === "portrait"
-            ? "w-[240px] sm:w-[280px] md:w-[300px]"
-            : "w-[360px] sm:w-[420px] md:w-[560px]"
+            ? "w-[200px] sm:w-[240px] md:w-[300px]"
+            : "w-[300px] sm:w-[420px] md:w-[560px]"
         }`}
         style={{
           aspectRatio: orientation === "portrait" ? "9 / 16" : "16 / 9",
@@ -162,12 +162,12 @@ const Videos = () => {
   };
 
   return (
-    <section className="relative w-full min-h-[720px] bg-black pt-40 sm:pt-36 md:pt-32 pb-12 sm:pb-16 md:pb-20 overflow-hidden mb-0">
+    <section className="relative w-full min-h-[620px] bg-black pt-40 sm:pt-36 md:pt-32 lg:pt-40 pb-12 sm:pb-16 md:pb-20 lg:pb-24 overflow-hidden mb-0">
       <div className="absolute inset-0 z-0 bg-black/90 backdrop-blur-sm" />
       <FloatingDots />
 
-      {/* Heading always visible */}
-      <h2 className="text-3xl sm:text-4xl md:text-5xl text-[#03A9F4] text-center mb-8 px-4 leading-tight drop-shadow-[0_0_15px_#7F5AF0] font-extrabold relative z-10">
+      {/* Updated heading size for better visibility */}
+      <h2 className="text-4xl sm:text-5xl md:text-5xl text-[#03A9F4] text-center mb-6 sm:mb-8 px-4 leading-tight drop-shadow-[0_0_15px_#7F5AF0] font-extrabold relative z-10">
         {categoryName ? (
           <>
             Showing thumbnails for:{" "}
@@ -180,13 +180,13 @@ const Videos = () => {
 
       <div
         ref={scrollRef}
-        className={`relative z-10 gap-8 md:gap-12 ${
+        className={`relative z-10 gap-6 sm:gap-8 md:gap-12 ${
           displayVideos.length === 1
             ? "flex justify-center items-center"
             : "flex overflow-x-auto no-scrollbar"
         }`}
         style={{
-          minHeight: "720px",
+          minHeight: "500px",
           scrollSnapType: displayVideos.length === 1 ? "none" : "x mandatory",
           WebkitOverflowScrolling: "touch",
           overflowY: "hidden",
@@ -198,12 +198,10 @@ const Videos = () => {
           alignItems: "center",
         }}
       >
-        {/* Loader placed below heading, inside section */}
         {isLoading ? (
           <SkeletonLoaderBox
             count={6}
-            className="min-w-[160px] sm:min-w-[200px] md:min-w-[260px] 
-               h-[220px] sm:h-[280px] md:h-[340px]"
+            className="min-w-[160px] sm:min-w-[200px] md:min-w-[260px] h-[220px] sm:h-[280px] md:h-[340px]"
           />
         ) : displayVideos.length === 0 ? (
           <p className="text-white text-center text-xl w-full">
