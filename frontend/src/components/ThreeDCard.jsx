@@ -4,7 +4,6 @@ import { NavLink } from "react-router-dom";
 import { FaPlay, FaPause } from "react-icons/fa";
 import axios from "axios";
 import FloatingDots from "../components/shared/FloatingDots";
-
 import { API_URL } from "../utils/api";
 
 const ThreeDCard = () => {
@@ -12,8 +11,10 @@ const ThreeDCard = () => {
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
   const videoRef = useRef(null);
+  const rotatingRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [assets, setAssets] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const setVolume = (video) => {
     if (video) {
@@ -58,7 +59,6 @@ const ThreeDCard = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Filter by position
   const left = assets.find((a) => a.position === "left");
   const center = assets.find((a) => a.position === "center");
   const right = assets.find((a) => a.position === "right");
@@ -92,69 +92,81 @@ const ThreeDCard = () => {
         <>
           {/* Left Image */}
           <div
-            className="group relative w-full max-w-sm aspect-video rounded-2xl overflow-hidden border-4 border-[#1a1a2e] bg-[#1a1a2e] shadow-[0_20px_40px_rgba(123,90,240,0.4)]"
+            className="group relative w-full max-w-sm aspect-video rounded-2xl overflow-hidden border-4 border-[#1a1a2e] bg-[#1a1a2e] shadow-[0_20px_40px_rgba(123,90,240,0.4)] flex items-center justify-center"
             style={{ transform: "perspective(1000px) rotateY(15deg)" }}
           >
-            {left && left.type === "image" && (
-              <img
-                src={left.mediaUrl}
-                loading="lazy"
-                alt="Left Thumbnail"
-                className="w-full h-full object-cover rounded-2xl"
-              />
+            {loading || !left ? (
+              <span className="text-white text-lg font-medium">Loading...</span>
+            ) : (
+              left.type === "image" && (
+                <img
+                  src={left.mediaUrl}
+                  loading="lazy"
+                  alt="Left Thumbnail"
+                  className="w-full h-full object-cover rounded-2xl"
+                />
+              )
             )}
           </div>
 
           {/* Center Video */}
-          <div className="group relative w-full max-w-xs aspect-[9/16] rounded-[2.5rem] overflow-hidden border-4 border-[#1a1a2e] bg-[#1a1a2e] shadow-[inset_0_0_20px_rgba(123,90,240,0.2),_0_15px_35px_rgba(58,212,240,0.6)] transition-transform duration-500 hover:scale-[1.03]">
-            {center && center.type === "video" && (
-              <>
-                <video
-                  ref={videoRef}
-                  src={center.mediaUrl}
-                  loop
-                  playsInline
-                  className="w-full h-full object-cover rounded-[2.5rem] relative z-10"
-                  controlsList="nodownload nofullscreen noremoteplayback"
-                  disablePictureInPicture
-                />
-                <div className="absolute bottom-4 left-4 z-40">
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      if (videoRef.current) {
-                        setVolume(videoRef.current);
-                        togglePlayPause(videoRef.current, setIsPlaying);
-                      }
-                    }}
-                    className="text-3xl text-black bg-[#f6c610cc] hover:bg-[#f6c610] p-3 rounded-full shadow-xl transition"
-                  >
-                    {isPlaying ? <FaPause /> : <FaPlay />}
-                  </button>
-                </div>
-              </>
+          <div className="group relative w-full max-w-xs aspect-[9/16] rounded-[2.5rem] overflow-hidden border-4 border-[#1a1a2e] bg-[#1a1a2e] shadow-[inset_0_0_20px_rgba(123,90,240,0.2),_0_15px_35px_rgba(58,212,240,0.6)] transition-transform duration-500 hover:scale-[1.03] flex items-center justify-center">
+            {loading || !center ? (
+              <span className="text-white text-lg font-medium">Loading...</span>
+            ) : (
+              center.type === "video" && (
+                <>
+                  <video
+                    ref={videoRef}
+                    src={center.mediaUrl}
+                    loop
+                    playsInline
+                    className="w-full h-full object-cover rounded-[2.5rem] relative z-10"
+                    controlsList="nodownload nofullscreen noremoteplayback"
+                    disablePictureInPicture
+                  />
+                  <div className="absolute bottom-4 left-4 z-40">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (videoRef.current) {
+                          setVolume(videoRef.current);
+                          togglePlayPause(videoRef.current, setIsPlaying);
+                        }
+                      }}
+                      className="text-3xl text-black bg-[#f6c610cc] hover:bg-[#f6c610] p-3 rounded-full shadow-xl transition"
+                    >
+                      {isPlaying ? <FaPause /> : <FaPlay />}
+                    </button>
+                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/10 z-10 pointer-events-none rounded-[2.5rem]" />
+                </>
+              )
             )}
-            <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/10 z-10 pointer-events-none rounded-[2.5rem]" />
           </div>
 
           {/* Right Image */}
           <div
-            className="group relative w-full max-w-sm aspect-video rounded-2xl overflow-hidden border-4 border-[#1a1a2e] bg-[#1a1a2e] shadow-[0_20px_40px_rgba(123,90,240,0.4)]"
+            className="group relative w-full max-w-sm aspect-video rounded-2xl overflow-hidden border-4 border-[#1a1a2e] bg-[#1a1a2e] shadow-[0_20px_40px_rgba(123,90,240,0.4)] flex items-center justify-center"
             style={{ transform: "perspective(1000px) rotateY(-15deg)" }}
           >
-            {right && right.type === "image" && (
-              <img
-                src={right.mediaUrl}
-                loading="lazy"
-                alt="Right Thumbnail"
-                className="w-full h-full object-cover rounded-2xl"
-              />
+            {loading || !right ? (
+              <span className="text-white text-lg font-medium">Loading...</span>
+            ) : (
+              right.type === "image" && (
+                <img
+                  src={right.mediaUrl}
+                  loading="lazy"
+                  alt="Right Thumbnail"
+                  className="w-full h-full object-cover rounded-2xl"
+                />
+              )
             )}
           </div>
         </>
       </div>
 
-      {/* Button */}
+      {/* Buttons */}
       <div className="mt-20 relative z-10 flex flex-wrap gap-8 md:gap-10 justify-center">
         <NavLink to="/thumbnails">
           <motion.button
