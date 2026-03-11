@@ -59,9 +59,6 @@ const App = () => {
       {/* Contact Page */}
       <Route path='/contact' element={<ContactMePage />}/>
 
-      {/* Page for any other endpoint */}
-      <Route path='*' element={<PageNotFound />}/>
-
       {/* -------------------------Admin login and admin dashboard------------------------- */}
       {/* Admin login */}
       <Route path='/admin' element={<AdminLogin />} />
@@ -73,7 +70,9 @@ const App = () => {
       <Route path='/admin/dashboard/upload-image' element={<ProtectedRoute><UploadImage /></ProtectedRoute>}/>
 
       <Route path='/admin/dashboard/upload-video' element={<ProtectedRoute><UploadVideo /></ProtectedRoute>}/>
-      
+
+      {/* Page for any other endpoint */}
+      <Route path='*' element={<PageNotFound />}/>
     </Routes>
     <Footer />
     <ToastContainer />
