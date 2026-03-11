@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face{
+    font-family: "Carter One";
+    src: url("./assets/fonts/CarterOne-Regular.ttf") format("truetype");
+    font-weight: 700;
+}
+
+@font-face{
+    font-family: "Quintessential";
+    src: url("./assets/fonts/Quintessential-Regular.ttf") format("truetype");
+    font-weight: 600;
+}
+
+body{
+    background-color: #0F0F0F;
+}
+
+/* Hide scrollbar but keep scrolling (css in thumbnail image container) */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
