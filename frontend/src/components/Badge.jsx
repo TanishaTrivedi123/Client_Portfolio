@@ -21,7 +21,7 @@ const Badge = () => {
         {skills.map((val, key) => (
           <span 
             key={key}
-            className="px-3 sm:px-4 py-1 sm:py-1.5 bg-white/10 border select-none border-white/20 rounded-full text-xs sm:text-sm md:text-sm font-medium font-font-quintessential uppercase tracking-wide transition duration-300 hover:bg-white hover:text-black hover:scale-105 cursor-default"
+            className="px-3 sm:px-4 py-1 sm:py-1.5 font-quintessential font-medium bg-white/10 border select-none border-white/20 rounded-full text-xs sm:text-sm md:text-sm uppercase tracking-wide transition duration-300 hover:bg-white hover:text-black hover:scale-105 cursor-default"
           >
             {val}
           </span>
