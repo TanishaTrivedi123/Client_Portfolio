@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
+const API_URL = import.meta.env.VITE_BACKEND_URL;
+
 const Videos = () => {
 
   const [video, setVideo] = useState([]);
@@ -8,7 +10,7 @@ const Videos = () => {
    // api call to get all images
   useEffect(() => {
     const fetchVideos = async () => {
-      const response = await axios.get("http://localhost:8080/media/admin/get-videos");
+      const response = await axios.get(`${API_URL}/media/admin/get-videos`);
 
       if(response && response.data){
         // console.log(response.data.data)

@@ -3,6 +3,8 @@ import axios from 'axios'
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
+const API_URL = import.meta.env.VITE_BACKEND_URL;
+
 const AdminLogin = () => {
     const passwordRef = useRef();
     const navigate = useNavigate();
@@ -16,7 +18,7 @@ const AdminLogin = () => {
         }
         
         try{
-            const response = await axios.post("http://localhost:8080/auth/admin/login", {
+            const response = await axios.post(`${API_URL}/auth/admin/login`, {
                 password
             });
 

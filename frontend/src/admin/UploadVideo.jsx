@@ -2,6 +2,8 @@ import React, { useRef, useState } from 'react'
 import { toast } from 'react-toastify';
 import axios from 'axios';
 
+const API_URL = import.meta.env.VITE_BACKEND_URL;
+
 const UploadImage = () => {
     const fileRef = useRef();
     const [videoName, setVideoName] = useState("Click to select video");
@@ -38,7 +40,7 @@ const UploadImage = () => {
         formData.append("videoType", videoType);
 
         try{
-            const response = await axios.post("http://localhost:8080/media/admin/add-video", formData, 
+            const response = await axios.post(`${API_URL}/media/admin/add-video`, formData, 
             {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem("token")}`
