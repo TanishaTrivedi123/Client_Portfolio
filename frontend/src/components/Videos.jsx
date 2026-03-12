@@ -5,19 +5,22 @@ const API_URL = import.meta.env.VITE_BACKEND_URL;
 
 const Videos = () => {
 
+  const [loading, setLoading] = useState(true);
   const [video, setVideo] = useState([]);
 
    // api call to get all images
   useEffect(() => {
     const fetchVideos = async () => {
-      const response = await axios.get(`${API_URL}/media/admin/get-videos`);
+      try{
+        const response = await axios.get(`${API_URL}/media/admin/get-videos`);
 
-      if(response && response.data){
-        // console.log(response.data.data)
-        setVideo(response.data.data);  //store images in state
+        if(response && response.data && response.data.data.length > 0){
+          setVideo(response.data.data);  //store images in state
+          setLoading(false);
+        }
       }
-      else{
-        console.log("Internal server error")
+      catch(error){
+        console.log("Internal server error", error);
       }
     }
 
@@ -28,7 +31,7 @@ const Videos = () => {
     <section className="flex flex-col pt-24 h-screen w-full" aria-label="Video portfolio">
 
       {/* Heading */}
-      <h2 className="text-primaryText select-none font-carterone font-semibold  text-5xl uppercase text-center p-6">
+      <h2 className="text-primaryText select-none font-carterone font-semibold text-5xl uppercase text-center p-6">
         Edits
       </h2>
 
@@ -37,29 +40,34 @@ const Videos = () => {
 
         {/* Scroll Area */}
         <div className="h-full overflow-y-auto no-scrollbar">
+          {
+            loading ? (
+              <div className="flex justify-center items-center h-full">
+                <div className="loader font-quintessential font-semibold text-primaryText"></div>
+              </div>
+            ) : (
+              <div className="columns-3 lg:columns-4 gap-5 p-4">
 
-          {/* Masonry Layout */}
-          <div className="columns-3 lg:columns-4 gap-5 p-4">
+                {video.map((video, index) => (
 
-            {video.map((video, index) => (
+                  <div
+                    key={index}
+                    className="mb-5 select-none break-inside-avoid rounded-lg border border-white/20 overflow-hidden hover:scale-105 transition duration-300"
+                  >
 
-              <div
-                key={index}
-                className="mb-5 select-none break-inside-avoid rounded-lg border border-white/20 overflow-hidden hover:scale-105 transition duration-300"
-              >
+                    <video
+                      src={video.videoURL}
+                      controls
+                      className="w-full object-cover"
+                    />
 
-                <video
-                  src={video.videoURL}
-                  controls
-                  className="w-full object-cover"
-                />
+                  </div>
+
+                ))}
 
               </div>
-
-            ))}
-
-          </div>
-
+            )
+          }
         </div>
 
       </div>
