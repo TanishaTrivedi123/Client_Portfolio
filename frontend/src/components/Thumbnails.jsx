@@ -33,13 +33,13 @@ const Thumbnails = () => {
       </h2>
 
       {/* Glass Container */}
-      <div className='w-[95%] mx-auto h-[70vh] rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md p-5'>
+      <div className='w-[85%] lg:w-[95%] mx-auto h-[70vh] rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md p-2 lg:md-5'>
 
         {/* Scroll Area */}
         <div className='h-full overflow-y-auto no-scrollbar'>
 
           {/* Thumbnail Grid */}
-          <div className='grid grid-cols-3 gap-7 p-4'>
+          <div className='grid grid-cols-1 lg:grid-cols-3 gap-7 p-4'>
             {/* images */}
             {
               image.map((img, index) => (

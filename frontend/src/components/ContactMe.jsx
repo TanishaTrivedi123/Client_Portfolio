@@ -11,7 +11,7 @@ const ContactMe = () => {
       </h2>
 
       {/* Contact Card */}
-      <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-10 max-w-xl w-full text-center shadow-lg">
+      <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-4 lg:p-10 max-w-sm lg:max-w-xl w-full text-center shadow-lg">
 
         {/* Description */}
         <p className="text-primaryText select-none font-quintessential font-normal text-lg opacity-80 mb-8">
