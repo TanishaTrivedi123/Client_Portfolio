@@ -59,7 +59,7 @@ const UploadImage = () => {
     <>
     <div className="h-screen w-full flex items-center justify-center bg-black">
         <div className="bg-zinc-900 p-10 rounded-xl shadow-2xl w-[420px]">
-            <h2 className="text-white text-2xl text-center mb-8 font-semibold font-carterone">
+            <h2 className="text-white select-none text-2xl text-center mb-8 font-semibold font-carterone">
             Upload Video
           </h2>
 
@@ -75,7 +75,7 @@ const UploadImage = () => {
 
           {/* Video Type Select */}
         <select value={videoType} onChange={(e) => setVideoType(e.target.value)}
-          className="w-full p-3 rounded-md bg-zinc-800 text-gray-300 border border-zinc-700 mb-5 focus:outline-none"
+          className="w-full p-3 select-none rounded-md bg-zinc-800 text-gray-300 border border-zinc-700 mb-5 focus:outline-none"
         >
           <option value="">Select Video Type</option>
           <option value="horizontal">Horizontal</option>
@@ -83,7 +83,7 @@ const UploadImage = () => {
         </select>
 
            <button onClick={handleSubmit}
-            className="w-full mt-6 p-3 bg-white text-black font-medium font-quintessential rounded-md hover:bg-gray-300 transition"
+            className="w-full mt-6 p-3 select-none bg-white text-black font-medium font-quintessential rounded-md hover:bg-gray-300 transition"
           >
             Upload Image
           </button>

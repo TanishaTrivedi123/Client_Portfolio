@@ -6,7 +6,7 @@ const ContactMe = () => {
     <section className="min-h-screen w-full pt-24 flex flex-col items-center justify-center bg-primaryBg">
 
       {/* Heading */}
-      <h2 className="text-primaryText font-carterone font-semibold  text-5xl text-center mb-10">
+      <h2 className="text-primaryText select-none font-carterone font-semibold  text-5xl text-center mb-10">
         Contact Me
       </h2>
 
@@ -14,7 +14,7 @@ const ContactMe = () => {
       <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-10 max-w-xl w-full text-center shadow-lg">
 
         {/* Description */}
-        <p className="text-primaryText font-quintessential font-normal text-lg opacity-80 mb-8">
+        <p className="text-primaryText select-none font-quintessential font-normal text-lg opacity-80 mb-8">
   I'm a creative Thumbnail Designer and Video Editor. If you have a project, need eye-catching visuals, or want to bring your video ideas to life, feel free to reach out. I love collaborating with creators to make content that stands out.
 </p>
 

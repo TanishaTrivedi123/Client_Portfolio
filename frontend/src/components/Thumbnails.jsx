@@ -28,7 +28,7 @@ const Thumbnails = () => {
     <section className='flex flex-col pt-24 h-screen w-full' aria-label="YouTube thumbnails portfolio">
       
       {/* Heading */}
-      <h2 className='text-primaryText font-carterone font-semibold text-5xl uppercase text-center p-6'>
+      <h2 className='text-primaryText select-none font-carterone font-semibold text-5xl uppercase text-center p-6'>
         Thumbnails
       </h2>
 
@@ -43,7 +43,7 @@ const Thumbnails = () => {
             {/* images */}
             {
               image.map((img, index) => (
-                <div className="rounded-lg border border-white/20 overflow-hidden hover:scale-105 transition duration-300">
+                <div className="rounded-lg select-none border border-white/20 overflow-hidden hover:scale-105 transition duration-300">
                   <img src={img.imageURL} alt="thumbnail" className="w-full h-full object-cover"/>
                 </div>
               ))

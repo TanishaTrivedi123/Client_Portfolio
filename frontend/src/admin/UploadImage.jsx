@@ -51,7 +51,7 @@ const UploadImage = () => {
     <>
     <div className="h-screen w-full flex items-center justify-center bg-black">
         <div className="bg-zinc-900 p-10 rounded-xl shadow-2xl w-[420px]">
-            <h2 className="text-white text-3xl text-center mb-8 font-semibold font-carterone">
+            <h2 className="text-white select-none text-3xl text-center mb-8 font-semibold font-carterone">
             Upload Image
           </h2>
 
@@ -66,7 +66,7 @@ const UploadImage = () => {
           </div>
 
            <button onClick={handleSubmit}
-            className="w-full mt-6 p-3 bg-white text-black font-medium font-quintessential rounded-md hover:bg-gray-300 transition"
+            className="w-full mt-6 p-3 bg-white select-none text-black font-medium font-quintessential rounded-md hover:bg-gray-300 transition"
           >
             Upload Image
           </button>

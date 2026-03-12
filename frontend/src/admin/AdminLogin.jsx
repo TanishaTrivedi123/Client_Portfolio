@@ -40,7 +40,7 @@ const AdminLogin = () => {
 
         <div className="bg-zinc-900 p-10 rounded-xl shadow-2xl w-[380px]">
 
-            <h2 className="text-white font-carterone text-3xl font-semibold text-center p-2 mb-8">
+            <h2 className="text-white select-none font-carterone text-3xl font-semibold text-center p-2 mb-8">
                 Admin Panel
             </h2>
 
@@ -54,7 +54,7 @@ const AdminLogin = () => {
                 />
 
                 <button onClick={handleSubmit}
-                    className="w-full p-3 bg-white text-black border border-zinc-700 font-medium font-quintessential rounded-md hover:bg-gray-300 transition"
+                    className="w-full p-3 bg-white select-none text-black border border-zinc-700 font-medium font-quintessential rounded-md hover:bg-gray-300 transition"
                 >
                     Login
                 </button>

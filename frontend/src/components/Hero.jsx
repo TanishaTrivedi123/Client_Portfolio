@@ -22,7 +22,7 @@ const Hero = () => {
         </h1>
 
         {/* Experience */}
-        <p className='mt-8 sm:mt-8 md:mt-12 select-none px-4 sm:px-4 py-2 sm:py-2 rounded-full bg-white/20 backdrop-blur-sm font-quintessential font-medium uppercase cursor-default border border-white/20 text-sm sm:text-base md:text-base'>
+        <p className='mt-8 sm:mt-8 md:mt-12 select-none px-4 sm:px-4 py-2 sm:py-2 rounded-full bg-white/20 backdrop-blur-sm font-quintessential font-semibold uppercase cursor-default border border-white/20 text-sm sm:text-base md:text-base'>
           2+ Years of Experience
         </p>
 

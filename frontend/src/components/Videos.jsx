@@ -28,7 +28,7 @@ const Videos = () => {
     <section className="flex flex-col pt-24 h-screen w-full" aria-label="Video portfolio">
 
       {/* Heading */}
-      <h2 className="text-primaryText font-carterone font-semibold  text-5xl uppercase text-center p-6">
+      <h2 className="text-primaryText select-none font-carterone font-semibold  text-5xl uppercase text-center p-6">
         Edits
       </h2>
 
@@ -45,7 +45,7 @@ const Videos = () => {
 
               <div
                 key={index}
-                className="mb-5 break-inside-avoid rounded-lg border border-white/20 overflow-hidden hover:scale-105 transition duration-300"
+                className="mb-5 select-none break-inside-avoid rounded-lg border border-white/20 overflow-hidden hover:scale-105 transition duration-300"
               >
 
                 <video

@@ -9,7 +9,7 @@ const skills = [
 
 const Badge = () => {
   return (
-    <section className='p-6 sm:p-10 w-full flex flex-col justify-center items-center' aria-label="Video editing and thumbnail design skills">
+    <section className='p-6 sm:p-10 bg-black w-full flex flex-col justify-center items-center' aria-label="Video editing and thumbnail design skills">
       
       {/* Section Heading */}
       <h2 className='text-primaryText font-carterone font-semibold text-3xl sm:text-3xl md:text-4xl text-center select-none p-3'>

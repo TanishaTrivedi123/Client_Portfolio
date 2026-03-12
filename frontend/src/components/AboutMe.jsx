@@ -16,16 +16,16 @@ const AboutMe = () => {
 
         {/* Bottom Side: Text */}
         <div className="flex-1 text-primaryText text-center">
-          <h2 className="text-3xl font-carterone sm:text-4xl md:text-5xl font-semibold mb-6">
+          <h2 className="text-3xl select-none font-carterone sm:text-4xl md:text-5xl font-semibold mb-6">
             Hi, I’m Anuj Trivedi 👋
           </h2>
-          <p className="text-sm font-quintessential font-normal sm:text-base md:text-lg opacity-80 mb-3">
+          <p className="text-sm select-none font-quintessential font-normal sm:text-base md:text-lg opacity-80 mb-3">
             I am a creative Thumbnail Designer and Video Editor. I help content creators stand out with eye-catching visuals and professional video editing.
           </p>
-          <p className="text-sm font-quintessential font-normal sm:text-base md:text-lg opacity-80 mb-3">
+          <p className="text-sm select-none font-quintessential font-normal sm:text-base md:text-lg opacity-80 mb-3">
             Over the years, I have collaborated with YouTubers, small businesses, and social media influencers, bringing their ideas to life with engaging thumbnails and professionally edited videos. I believe that great visuals are the key to capturing attention in today's digital world.
           </p>
-          <p className="text-sm font-quintessential font-normal sm:text-base md:text-lg opacity-80 mb-3">
+          <p className="text-sm select-none font-quintessential font-normal sm:text-base md:text-lg opacity-80 mb-3">
             My passion lies in combining creativity with technical skills to craft content that resonates with audiences and drives engagement. Every frame, every detail matters to me.
           </p>
         </div>
