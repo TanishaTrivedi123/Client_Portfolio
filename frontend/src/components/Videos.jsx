@@ -1,34 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 
-const API_URL = import.meta.env.VITE_BACKEND_URL;
-
-const Videos = () => {
-
-  const [loading, setLoading] = useState(true);
-  const [video, setVideo] = useState([]);
-
-   // api call to get all images
-  useEffect(() => {
-    const fetchVideos = async () => {
-      try{
-        const response = await axios.get(`${API_URL}/media/admin/get-videos`);
-
-        if(response && response.data && response.data.data.length > 0){
-          setVideo(response.data.data);  //store images in state
-          setLoading(false);
-        }
-      }
-      catch(error){
-        console.log("Internal server error", error);
-      }
-    }
-
-    fetchVideos();
-  }, [])
+const Videos = ({videos = [], loading}) => {
 
   return (
-    <section className="flex flex-col pt-24 h-screen w-full" aria-label="Video portfolio">
+    <section className="flex mb-44 flex-col pt-24 h-screen w-full" aria-label="Video portfolio">
 
       {/* Heading */}
       <h2 className="text-primaryText select-none font-carterone font-semibold text-5xl uppercase text-center p-6">
@@ -36,7 +12,7 @@ const Videos = () => {
       </h2>
 
       {/* Glass Container */}
-      <div className="w-[85%] lg:w-[95%] mx-auto h-[70vh] rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md p-2 lg:p-5 ">
+      <div className="w-[85%] lg:w-[95%] mx-auto h-[90vh] rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md p-2 lg:p-5 ">
 
         {/* Scroll Area */}
         <div className="h-full overflow-y-auto no-scrollbar">
@@ -46,9 +22,9 @@ const Videos = () => {
                 <div className="loader font-quintessential font-semibold text-primaryText"></div>
               </div>
             ) : (
-              <div className="columns-3 lg:columns-4 gap-5 p-4">
+              <div className="columns-2 lg:columns-4 gap-5 p-4">
 
-                {video.map((video, index) => (
+                {videos.map((video, index) => (
 
                   <div
                     key={index}
@@ -57,7 +33,10 @@ const Videos = () => {
 
                     <video
                       src={video.videoURL}
+                      preload="metadata"
                       controls
+                      controlsList="nodownload noremoteplayback"
+                      disablePictureInPicture
                       className="w-full object-cover"
                     />
 

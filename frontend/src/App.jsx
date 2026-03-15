@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 import Navbar from './components/Navbar'
 import { Route, Routes } from 'react-router-dom'
 import HomePage from './pages/HomePage'
@@ -17,6 +18,46 @@ import Footer from './components/Footer'
 import PageNotFound from './pages/PageNotFound'
 
 const App = () => {
+  const [video, setVideo] = useState([]);
+  const [image, setImage] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  //fetch images and videos at the mount of the page
+  const API_URL = import.meta.env.VITE_BACKEND_URL;
+
+  useEffect(() => {
+
+  const fetchData = async () => {
+    try {
+
+      const [videoResponse, imageResponse] = await Promise.all([
+        axios.get(`${API_URL}/media/admin/get-videos`),
+        axios.get(`${API_URL}/media/admin/get-images`)
+      ]);
+
+      if(videoResponse && videoResponse.data && videoResponse.data.data.length > 0){
+        // console.log(videoResponse.data.data)
+        setVideo(videoResponse.data.data);
+      }
+
+      if(imageResponse && imageResponse.data && imageResponse.data.data.length > 0){
+        // console.log(imageResponse.data.data)
+        setImage(imageResponse.data.data);
+      }
+
+      setLoading(false);
+
+    }
+    catch(error){
+      console.log("Internal server error", error);
+    }
+
+  }
+
+  fetchData();
+
+  }, [])
+
   // auto logout when token expired
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -48,10 +89,10 @@ const App = () => {
       <Route path='/' element={<HomePage />} />
       
       {/* Thumbnail Page */}
-      <Route path='/thumbnails' element={<ThumbnailPage />} />
+      <Route path='/thumbnails' element={<ThumbnailPage images={image} loading={loading} />} />
 
       {/* Video Page */}
-      <Route path='/videos' element={<VideoPage />} />
+      <Route path='/videos' element={<VideoPage videos={video} loading={loading} />} />
 
       {/* About Page */}
       <Route path='/about' element={<AboutMePage />}/>

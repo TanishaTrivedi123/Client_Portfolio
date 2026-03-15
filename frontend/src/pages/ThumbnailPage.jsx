@@ -1,10 +1,10 @@
 import React from 'react'
 import Thumbnails from "../components/Thumbnails"
 
-const ThumbnailPage = () => {
+const ThumbnailPage = ({images, loading}) => {
   return (
     <>
-    <Thumbnails />
+    <Thumbnails images={images} loading={loading} />
     </>
   )
 }

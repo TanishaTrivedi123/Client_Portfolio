@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <footer className="w-full bg-white/10 backdrop-blur-sm border-t border-white/20 text-primaryText" aria-label="Website footer">
       
-      <div className="max-w-7xl mx-auto px-6 py-8 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div className="max-w-7xl mx-auto px-6 py-4 lg:py-8 flex flex-col md:flex-row items-center justify-between gap-6">
         
         {/* Left Side */}
         <div className="text-center md:text-left">
