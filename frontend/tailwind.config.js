@@ -14,15 +14,9 @@ export default {
         primaryBg: "#0F0F0F",
         sectionBg: "#1A1A1A",
         primaryText: "#FFFFFF",
+        orangeColor: "#aa4e03"
       }
     },
   },
   plugins: [],
 }
-
-
-// -----------some info----------------
-//for using bold Montserrat do => "font-bold font-montserrat" this load 700 font weight
-//for using semibold Montserrat do => "font-semibold font-montserrat" this load 600 font weight
-//for using OpenSans-Regular do => "font-opensans" this load default weight 400
-//for using OpenSans-Medium => "font-medium font-opensans" this load 500 font weight

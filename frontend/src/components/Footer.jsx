@@ -22,19 +22,19 @@ const Footer = () => {
 
         {/* Social Icons */}
         <div className="flex gap-6 text-2xl">
-          <a href="#" className="hover:scale-110 transition">
+          <a href="https://www.instagram.com/antrivxsoon?igsh=MWExbDh1emlnMG5pbQ==" target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition">
             <FaInstagram />
           </a>
 
-          <a href="#" className="hover:scale-110 transition">
+          <a href="mailto:antrivofficial@gmail.com" className="hover:scale-110 transition">
             <FaEnvelope />
           </a>
 
-          <a href="#" className="hover:scale-110 transition">
+          <a href="https://www.linkedin.com/in/anuj-trivedi-372128276?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition">
             <FaLinkedin />
           </a>
 
-          <a href="#" className="hover:scale-110 transition">
+          <a href="https://discordapp.com/user/1112029581097054239" target="_blank" rel="noopener noreferrer" className="hover:scale-110 transition">
             <FaDiscord />
           </a>
         </div>

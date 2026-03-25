@@ -4,7 +4,7 @@ import axios from "axios";
 const Videos = ({videos = [], loading}) => {
 
   return (
-    <section className="flex mb-44 flex-col pt-24 h-screen w-full" aria-label="Video portfolio">
+    <section className="flex mb-44 flex-col pt-28 h-screen w-full" aria-label="Video portfolio">
 
       {/* Heading */}
       <h2 className="text-primaryText select-none font-carterone font-semibold text-5xl uppercase text-center p-6">

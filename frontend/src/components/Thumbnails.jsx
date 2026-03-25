@@ -3,7 +3,7 @@ import React, { useEffect} from 'react'
 const Thumbnails = ({images = [], loading}) => {
 
   return (
-    <section className='flex flex-col mb-40 pt-24 h-screen w-full' aria-label="YouTube thumbnails portfolio">
+    <section className='flex flex-col mb-40 pt-28 h-screen w-full' aria-label="YouTube thumbnails portfolio">
       
       {/* Heading */}
       <h2 className='text-primaryText select-none font-carterone font-semibold text-5xl uppercase text-center p-6'>

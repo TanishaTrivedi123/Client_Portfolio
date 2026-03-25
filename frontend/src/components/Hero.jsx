@@ -2,34 +2,49 @@ import React from 'react'
 
 const Hero = () => {
   return (
-    <section className='w-full h-screen relative' aria-label="Hero Section">
+    <section className='w-full bg-black h-[80vh] lg:h-screen relative overflow-hidden' aria-label="Hero Section">
 
-      {/* Video */}
-      <video 
-        src="/herovideo1.mp4" 
-        autoPlay 
-        muted 
-        loop 
-        className='absolute top-0 left-0 object-cover w-full h-full opacity-[0.9]'
-      ></video>
-
-      {/* Text over video */}
-      <div className='text-primaryText w-full h-full absolute top-0 left-0 flex flex-col justify-center items-center text-center px-4 sm:px-6 md:px-8 mt-9 md:mt-9'>
+      <div className='absolute bg-sectionBg top-6 left-4 right-4 bottom-4 sm:top-6 sm:left-6 sm:right-6 sm:bottom-6 md:top-4 md:left-5 md:right-5 md:bottom-4 rounded-2xl flex flex-col items-center text-center px-4 sm:px-6 md:px-8 justify-start pt-12 gap-2 overflow-hidden lg:overflow-hidden lg:justify-center lg:gap-0'>
 
         {/* Heading */}
-        <h1 className='font-carterone p-5 lg:p-4 select-none font-extrabold text-4xl sm:text-4xl md:text-6xl leading-snug sm:leading-snug md:leading-tight max-w-full sm:max-w-xl md:max-w-4xl uppercase'>
-          Cinematic Video Editing & Scroll-Stopping Thumbnails
+        <h1 className='font-carterone text-primaryText select-none font-extrabold uppercase text-3xl sm:text-4xl md:text-6xl leading-snug sm:leading-snug md:leading-tight max-w-full sm:max-w-xl md:max-w-5xl lg:absolute lg:top-44 lg:-translate-y-1/2 pt-5 relative z-10'>
+          Video Editor <span className='block lg:inline text-orangeColor font-quintessential'>&</span> Thumbnail Designer
         </h1>
 
-        {/* Experience */}
-        <p className='mt-10 sm:mt-8 md:mt-12 select-none px-5 py-3 lg:py-3 rounded-full bg-white/20 backdrop-blur-sm font-quintessential font-semibold uppercase cursor-default border border-white/20 text-sm sm:text-base md:text-base'>
+        {/* Experience badge — mobile only, shown below heading */}
+        <p className='block lg:hidden select-none text-primaryText px-4 py-1.5 rounded-full bg-orangeColor font-quintessential font-semibold uppercase border border-white/20 text-[13px] relative z-10 mt-4'>
           2+ Years of Experience
         </p>
 
-        {/* Sub Heading */}
-        <p className='font-quintessential p-5 lg:p-4 font-semibold select-none text-xl sm:text-xl md:text-2xl mt-8 sm:mt-8 md:mt-12 max-w-lg sm:max-w-lg md:max-w-2xl'>
-          Turning raw footage into engaging stories and designing thumbnails that grab attention and boost clicks.
+        {/* Image — height fixed via parent div, scroll pe resize nahi hogi */}
+        <div className='absolute bottom-0 left-0 right-0 flex justify-center items-end z-10 h-[50%] lg:h-full'>
+          <img
+            src="/heroImage.png"
+            className='h-full w-auto max-w-none object-contain object-bottom lg:h-[65vh]'
+            alt="My Image"
+          />
+        </div>
+
+        {/* Desktop experience badge */}
+        <p className='hidden lg:block select-none text-primaryText px-4 py-1.5 mt-4 rounded-full bg-orangeColor font-quintessential font-semibold uppercase border border-white/20 text-base relative z-30 lg:absolute lg:right-24 lg:bottom-60'>
+          2+ Years of Experience
         </p>
+
+        {/* Desktop subheading */}
+        <p className='hidden lg:block font-quintessential text-primaryText mt-7 font-semibold select-none text-lg sm:text-xl md:text-2xl text-center px-4 lg:absolute lg:left-14 lg:bottom-28 lg:text-left lg:p-4 lg:leading-9'>
+          Turning raw footage into engaging{' '}
+          <br className='hidden lg:block' />
+          stories and designing{' '}
+          <br className='hidden lg:block' />
+          thumbnails that{' '}
+          <br className='hidden lg:block' />
+          grab attention{' '}
+          <br className='hidden lg:block' />
+          and boost{' '}
+          <br className='hidden lg:block' />
+          clicks.
+        </p>
+
       </div>
 
     </section>
