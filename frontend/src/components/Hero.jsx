@@ -17,7 +17,7 @@ const Hero = () => {
         </p>
 
         {/* Image — height fixed via parent div, scroll pe resize nahi hogi */}
-        <div className='absolute bottom-0 left-0 right-0 flex justify-center items-end z-10 h-[50%] lg:h-full'>
+        <div className='absolute text-primaryText bottom-0 left-0 right-0 flex justify-center items-end z-10 h-[50%] lg:h-full'>
           <img
             src="/heroImage.png"
             className='h-full w-auto max-w-none object-contain object-bottom lg:h-[65vh]'

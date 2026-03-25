@@ -15,7 +15,7 @@ const AboutMe = () => {
         </div>
 
         {/* IMAGE */}
-        <div className="p-3 flex justify-center -mt-28 lg:-mt-40 items-center w-full">
+        <div className="p-3 text-primaryText flex justify-center -mt-28 lg:-mt-40 items-center w-full">
           <img 
             src="/aboutImage.png" 
             alt="My Image" 
@@ -24,7 +24,7 @@ const AboutMe = () => {
         </div>
 
         {/* ⭐ Experience */}
-        <div className="flex flex-col items-center gap-1 
+        <div className="flex flex-col text-primaryText items-center gap-1 
                         lg:absolute lg:right-36 lg:top-2/3">
           
           <img 
