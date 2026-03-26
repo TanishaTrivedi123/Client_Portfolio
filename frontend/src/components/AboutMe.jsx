@@ -8,14 +8,14 @@ const AboutMe = () => {
 
         {/* HEADING */}
         <div className="lg:mt-0 p-4 mt-2">
-          <h1 className="text-primaryText font-carterone font-normal 
+          <h1 className="text-primaryText font-quintessential font-normal 
             text-3xl sm:text-4xl select-none md:text-5xl lg:text-6xl text-center">
-            I'm <span className="text-orangeColor">Anuj</span>, <br /> Video Editor & Thumbnail Designer
+            <span className="font-quintessential text-5xl sm:text-4xl select-none md:text-5xl lg:text-7xl">I'm</span> <span className="text-orangeColor font-quintessential text-5xl sm:text-4xl select-none md:text-5xl lg:text-7xl">Anuj</span> <br /> Video Editor & Thumbnail Designer
           </h1>
         </div>
 
         {/* IMAGE */}
-        <div className="p-3 select-none text-primaryText flex justify-center -mt-28 lg:-mt-40 items-center w-full">
+        <div className="p-3 select-none text-primaryText flex justify-center -mt-24 lg:-mt-32 items-center w-full">
           <img 
             src="/aboutImage.png" 
             alt="My Image" 
@@ -30,7 +30,7 @@ const AboutMe = () => {
           <img 
             src="/5starImages.png" 
             alt="star images" 
-            className="w-24 h-9 lg:h-14 sm:w-28 md:w-32 lg:w-36 object-cover"
+            className="w-24 bg-white/10 backdrop-blur-md rounded-full px-4 h-9 lg:h-11 sm:w-28 md:w-32 lg:w-36 object-cover"
           />
 
           <div className="m-2">

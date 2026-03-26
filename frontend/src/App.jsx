@@ -36,7 +36,7 @@ const App = () => {
       ]);
 
       if(videoResponse && videoResponse.data && videoResponse.data.data.length > 0){
-        // console.log(videoResponse.data.data)
+        console.log(videoResponse.data.data)
         setVideo(videoResponse.data.data);
       }
 
@@ -89,10 +89,10 @@ const App = () => {
       <Route path='/' element={<HomePage />} />
       
       {/* Thumbnail Page */}
-      <Route path='/thumbnails' element={<ThumbnailPage images={image} loading={loading} />} />
+      <Route path='/thumbnails' element={<ThumbnailPage images={image} setImages={setImage} loading={loading} />} />
 
       {/* Video Page */}
-      <Route path='/videos' element={<VideoPage videos={video} loading={loading} />} />
+      <Route path='/videos' element={<VideoPage videos={video} setVideos={setVideo} loading={loading} />} />
 
       {/* About Page */}
       <Route path='/about' element={<AboutMePage />}/>
