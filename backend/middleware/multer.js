@@ -24,7 +24,7 @@ const fileFilter = (req,file,cb) => {
 
 const upload = multer({
     storage,  //ye multer ko bata raha hai ki file kaha or kese store karni hai.
-    limits: {fileSize: 50 * 1024 * 1024},  //50MB se badi file reject karega
+    limits: {fileSize: 100 * 1024 * 1024},  //100MB se badi file reject karega
     fileFilter,  //yaha me mera custom validation function attach kr rahi hu
 });
 
