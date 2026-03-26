@@ -2,20 +2,20 @@ import React from "react";
 
 const AboutMe = () => {
   return (
-    <section className="bg-primaryBg relative w-full pt-9 lg:pt-24 flex justify-center items-start">
+    <section className="bg-primaryBg relative w-full pt-4 mb-4 lg:mb-1 lg:pt-24 flex justify-center items-start">
       
-      <div className="w-full min-h-[80vh] flex flex-col items-center gap-6 py-5 px-4">
+      <div className="w-full top-6 left-4 right-4 bottom-4 sm:top-6 sm:left-6 sm:right-6 sm:bottom-6 md:top-4 md:left-5 md:right-5 md:bottom-4 rounded-2xl flex flex-col items-center text-center px-4 sm:px-6 md:px-8 justify-start pt-12 gap-2 overflow-hidden lg:overflow-hidden lg:justify-center lg:gap-0">
 
         {/* HEADING */}
-        <div className="lg:mt-4 p-4 mt-7">
+        <div className="lg:mt-0 p-4 mt-2">
           <h1 className="text-primaryText font-carterone font-normal 
-            text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-center">
+            text-3xl sm:text-4xl select-none md:text-5xl lg:text-6xl text-center">
             I'm <span className="text-orangeColor">Anuj</span>, <br /> Video Editor & Thumbnail Designer
           </h1>
         </div>
 
         {/* IMAGE */}
-        <div className="p-3 text-primaryText flex justify-center -mt-28 lg:-mt-40 items-center w-full">
+        <div className="p-3 select-none text-primaryText flex justify-center -mt-28 lg:-mt-40 items-center w-full">
           <img 
             src="/aboutImage.png" 
             alt="My Image" 
@@ -24,7 +24,7 @@ const AboutMe = () => {
         </div>
 
         {/* ⭐ Experience */}
-        <div className="flex flex-col text-primaryText items-center gap-1 
+        <div className="flex flex-col select-none text-primaryText items-center gap-1 
                         lg:absolute lg:right-36 lg:top-2/3">
           
           <img 
@@ -33,14 +33,15 @@ const AboutMe = () => {
             className="w-24 h-9 lg:h-14 sm:w-28 md:w-32 lg:w-36 object-cover"
           />
 
+          <div className="m-2">
           <p className="text-primaryText text-base font-quintessential font-semibold leading-tight">
             2+ Years Experience
           </p>
-
+          </div>
         </div>
 
         {/* Paragraph */}
-        <div className="font-quintessential text-primaryText text-center px-2
+        <div className="font-quintessential select-none text-primaryText text-center px-2
                         lg:absolute lg:top-2/3 lg:left-16 lg:text-left 
                         max-w-xs sm:max-w-sm md:max-w-md lg:max-w-sm leading-relaxed break-words">
           <p>

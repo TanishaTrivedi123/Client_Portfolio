@@ -19,7 +19,7 @@ const ContactMe = () => {
         </p>
 
         {/* ✅ Email Text */}
-        <p className="text-primaryText font-carterone text-lg mb-6">
+        <p className="text-primaryText select-none font-carterone text-lg mb-6">
             antrivofficial@gmail.com
         </p>
 
