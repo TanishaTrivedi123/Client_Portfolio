@@ -14,6 +14,26 @@
     font-weight: 600;
 }
 
+/* Prevent horizontal scroll */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background-color: black;
+}
+
+/* Make sure root also safe */
+#root {
+  overflow-x: hidden;
+}
+
+/* Prevent accidental drag scroll */
+* {
+  box-sizing: border-box;
+  scrollbar-width: thin;
+}
+
 body{
     background-color: #0F0F0F;
 }
